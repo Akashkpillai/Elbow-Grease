@@ -1,0 +1,100 @@
+/* google fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+
+.login{
+   /* background:linear-gradient(to left, rgb(34, 34, 34), rgb(241, 241, 241)); */
+   background-color: rgb(41, 41, 41);
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    color:rgb(23, 23, 23);
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  .container{
+    display:flex;
+      align-items:center;
+      justify-content:center;
+      height:100vh;
+      width:100%;
+  }
+    .form-box{
+        width:680px;
+        height:700px;
+        background-color:rgb(255, 255, 255);
+        padding:20px;
+        display:flex;
+        flex-direction:column;
+        justify-content:flex-start;
+        /* opacity:0.5; */
+        border-radius:2%;
+    }
+  .header-form{
+    margin-bottom:15px;
+  }
+  button{
+    margin-top:40px;
+    margin-bottom:10px;
+  }
+  .message{
+    display:flex;
+    justify-content:space-between
+  }
+  .social{
+    display:flex;
+    justify-content:space-around;
+    padding:30px;
+  }
+  
+  .social i{
+    font-size:35px;
+  }
+  
+  .social i:hover{
+    color:red;
+    cursor:pointer;
+  }
+  .text-primary-login {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bolder;
+    font-size: 28px;
+    margin-top: 0rem;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  .form-control{
+    /* margin-left: 4.5rem; */
+    /* font-size: 1.2rem; */
+    margin-bottom: 22px;
+    border: none;
+    border-bottom: 2px solid silver;
+  }
+  
+  .btn-login{
+    display: flex;
+    font-size: 21px;
+    margin-bottom: 43px;
+    align-items: center;
+  }
+  .material-symbols-outlined{
+  margin-left: 146px;
+      margin-bottom: 14px;
+      font-size: 73px;
+  }
+
+  /* .signup{
+    text-align: center;
+    color: black;
+  } */
+ 
+  .img{
+    display: flex;
+    justify-content: center;
+    margin-left: 18px;
+    height: 170px;
+    /* width: 50px; */
+  }
+  .valiText{
+    color: red;
+  }

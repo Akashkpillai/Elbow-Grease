@@ -1,0 +1,30 @@
+.success{
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    /* height: 100vh; */
+    margin-top: 30vh;
+    margin-left: 40vw;
+    align-content: center;
+    
+  }
+  .heading{
+    font-weight: 500;
+    font-size: 15px;
+  }
+  .btn{
+    margin-left: 7vw !important;
+    margin-top: 14px !important;
+    
+  }
+  .image-err{
+    width: 16rem;
+    height: 15rem;
+    margin-top: 5rem;
+  }
+  .errmsg{
+    width: 16em;
+    position: absolute;
+    
+    
+  }

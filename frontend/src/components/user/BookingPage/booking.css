@@ -1,0 +1,52 @@
+
+body{
+    background-color: white;
+    line-height: 2rem;
+}
+.maindivbook{
+    height:fit-content;
+    overflow-x: hidden;
+}
+.cardbook{
+    margin-top: 2rem;
+}
+.cardbook Button{
+    margin-top: 1rem;
+    margin-right: 1rem;
+    background-color: black;
+}
+.booktext{
+    width: 40rem;
+}
+.booktext h1{
+    font-weight: bold;
+    margin-top: 2rem;
+    margin-left: 1rem;
+    text-decoration: underline;
+    font-size: 20px;
+}
+.booktext p{
+    margin-left: 1rem;
+    margin-top: 1rem;
+    font-size: 15px;
+}
+.review h1{
+    margin-top: 2rem;
+    margin-left: 1rem;
+    text-decoration: underline;
+    font-weight: bold;
+}
+.rating p{
+    margin-top: 0.5rem;
+    margin-left: 50px;
+    
+}
+.rating{
+    margin-top: 1rem;
+    margin-left: 2rem;
+
+}
+.ratingflex{
+   display: flex;
+   justify-content: space-between;
+}
