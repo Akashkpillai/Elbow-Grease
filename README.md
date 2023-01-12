@@ -19,7 +19,7 @@ A  web platform to help people to hire workes for home maintance, built using Re
 NOTE: Please read the RUN section before opening an issue.
 >Warning: Elbow-Grease is still in development, constantly being optimized and isn't still stable enough to be used in production environments
 ## Demo
-![This is an image](/Elbowproject.png)
+![This is an image](/ELbow.png)
 
 Elbow-Grease is an online platform to hire maintance Workers for home like plumber,electrician and painters. Here they can book services.The user can apply for being an expert
 
