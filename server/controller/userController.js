@@ -1,4 +1,3 @@
-const userHelper = require('../helpers/userHelper')
 const jwt = require('jsonwebtoken')
 const User = require('../model/userModel')
 const bycrypt = require('bcrypt')
@@ -92,17 +91,8 @@ const userCtrl = {
             if (! isMatch) {
                 return res.status(400).json({msg: "Invalide Password"});
             }
-            // const refresh_token = createRefreshToken({_id:user._id})
-            //     res.cookie("refreshToken", refresh_token, {
-            //     httpOnly: true,
-            //     path: "/users/refresh_Token",
-            //     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-            // });
             const token = jwt.sign({
-                _id: user._id,
-                email: user.email,
-                phone: user.phone,
-                name: user.name
+                _id: user._id
             }, process.env.JWT_SECRET_KEY)
             return res.json({msg: "Login Successful", data: token});
         } catch (error) {
@@ -152,11 +142,8 @@ const userCtrl = {
     resetPassword: async (req, res) => {
         try {
             const {password} = req.body
-            console.log(password);
-
             const passwordHash = await bycrypt.hash(password, 12);
-
-            console.log(req.user)
+            // console.log(req.user)
             await User.findOneAndUpdate({
                 _id: req.user.id
             }, {password: passwordHash})
@@ -167,7 +154,7 @@ const userCtrl = {
     },
     getUserIfo: async (req, res) => {
         try {
-            const user = await User.findById(req.user.id).select('-password')
+            const user = await User.findById(req.user.id)
             res.json(user)
         } catch (error) {
             return res.status(500).json({msg: error.message})

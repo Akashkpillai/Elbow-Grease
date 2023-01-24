@@ -7,7 +7,7 @@ import LOGO from '../../../asset/elbow-grease-low-resolution-logo-black-on-trans
 import {useSelector,useDispatch} from 'react-redux'
 import jwt from "jwt-decode"
 import {useNavigate} from 'react-router-dom'
-import { clearUserLoginDetails,clearUserToken } from '../../Redux/adminReducer';
+import { clearUserLoginDetails,clearUserToken, clearUserAllDetails } from '../../Redux/adminReducer';
 
 
 
@@ -19,6 +19,7 @@ const Navbar = () => {
     localStorage.clear('userInfo')
     dispatch(clearUserToken());
     dispatch(clearUserLoginDetails());
+    dispatch( clearUserAllDetails())
     navigate('/login')
 }
 
@@ -31,7 +32,7 @@ const Navbar = () => {
         </Link>
           {/* <h1>Login</h1> */}
         <ul className={Mobile ? "nav-links-mobile" : "nav-links"} onClick={() => setMobile(false)}>
-          <Link to='/' className='home'>
+          <Link to='/userHome' className='home'>
             <li>Home</li>
           </Link>
           <Link to='/services' className='services'>
@@ -42,6 +43,9 @@ const Navbar = () => {
           </Link>
           <Link to='/deal' className='deal'>
             <li>Deal</li>
+          </Link>
+          <Link to='/profile' className='deal'>
+            <li>Profile</li>
           </Link>
           {
             details?

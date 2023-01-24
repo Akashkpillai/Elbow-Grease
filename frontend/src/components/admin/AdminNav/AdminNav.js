@@ -5,6 +5,9 @@ import './AdminNav.css'
 import LOGO from '../../../asset/elbow-grease-low-resolution-logo-black-on-transparent-background.png'
 import {useDispatch} from 'react-redux'
 import {clearAdminLoginDetails} from '../../Redux/adminReducer'
+import { Modal } from 'antd';
+import { colors, darken } from '@mui/material';
+import { style } from '@mui/system';
 
 
 function AdminNav() {
@@ -20,8 +23,23 @@ function AdminNav() {
         localStorage.removeItem('adminDetails')
         navigate('/admin')
     }
+const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
     return (
+     
         <div>
+      <Modal  title="Logout!"  open={isModalOpen} okText="YES" className='text-red-600' onOk={logout} onCancel={handleCancel}>
+        <h1>Are you want to logout?</h1>
+        {/* <button onClick={logout}>Yes</button> */}
+      </Modal>
             <div className="min-h-full">
                 <nav className="nav-color">
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -43,15 +61,16 @@ function AdminNav() {
                                 <div className="hidden md:block">
                                     <div className="ml-10 flex items-baseline space-x-4">
                                         {/* Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white"  */}
-                                        <button className=" hover:bg-gray-700 hover:text-white text-black-300 px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Dashboard</button>
-
-                                        <button className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Experts</button>
+                                        <Link to='/admin/expert'>
+                                        <button className="text-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Experts</button>
+                                        </Link>
 
                                         <Link to='/admin/user'>
                                             <button className="text-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Users</button>
                                         </Link>
-
-                                        <button className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">services</button>
+                                        <Link to='/admin/service'>
+                                        <button className="text-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">services</button>
+                                        </Link>
 
                                         <button className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Payments</button>
 
@@ -69,7 +88,7 @@ function AdminNav() {
                                     {/* Profile dropdown  */}
                                     <div className="relative ml-3">
                                         <div>
-                                            <button onClick={logout}
+                                            <button onClick={showModal}
                                                 type="button"
                                                 className='rounded-full py-2 px-3 text-xs font-bold cursor-pointer tracking-wider border-blue-900 border-2 text-blue-900 hover:bg-blue-900 hover:text-white'>
                                                 Logout

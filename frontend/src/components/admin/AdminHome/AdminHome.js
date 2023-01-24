@@ -10,7 +10,7 @@ function AdminHome() {
         const token=localStorage.getItem('adminToken')
         if(token){
           const admin=jwt(token)
-          console.log(admin);
+          // console.log(admin);
           if(admin){
             navigate('/admin/home')
           }else{

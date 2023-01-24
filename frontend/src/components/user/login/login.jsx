@@ -37,10 +37,7 @@ function Login() {
         localStorage.setItem('userInfo',res.data.data)
         const token = res.data.data
         dispatch(userToken(token))
-        const users = jwt(res.data.data)
-        const userName = users.name
-        localStorage.setItem('UserName',userName)
-        navigate('/')
+        navigate('/userHome')
     } catch (err) {
        err.response.data.msg && setUser({...user,err:err.response.data.msg,success:''})
     }

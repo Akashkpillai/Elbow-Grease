@@ -6,6 +6,8 @@ import {Provider} from 'react-redux';
 import store from './components/Redux/store'
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
+import { ToastContainer} from 'react-toastify';
+
 
 let persistor = persistStore(store);
 
@@ -15,6 +17,7 @@ root.render(
   <Provider store={store}>
     <PersistGate persistor={persistor}>
       <App />
+     <ToastContainer />    
     </PersistGate>
   </Provider>
 );

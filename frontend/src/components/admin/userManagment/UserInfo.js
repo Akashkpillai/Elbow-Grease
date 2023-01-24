@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import axiox from 'axios'
 function AdminUserInfoPage() {
   const [userDetails, setUserDetails] = useState([]);
@@ -30,7 +32,7 @@ function AdminUserInfoPage() {
       },
     };
     const data = await axiox.put(`http://localhost:3500/admin/block/${id}`,config);
-    console.log(data);
+    toast.success(`${data.data.details.name} is blocked!`)
     if (data.blocked) {
       setUserDetails(data.userDetails);
     }
@@ -46,10 +48,10 @@ function AdminUserInfoPage() {
       },
     };
     const data = await axiox.put(`http://localhost:3500/admin/unblock/${id}`,config);
-    console.log(data);
+    // console.log(data.data.details.name);
+    toast.success(`${data.data.details.name} is unblocked!`)
     if (data.blocked) {
-      window.location.reload(true);
-      setUserDetails(data.userDetails);
+      setUserDetails(data.userDetails); 
     }
   }
 

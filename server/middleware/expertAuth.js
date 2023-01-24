@@ -1,8 +1,7 @@
-const Admin = require('../model/adminModel')
 const jwt = require('jsonwebtoken')
 const helpers = require('../helpers/adminHelper')
 
-const authAdmin = async (req, res, next) => {
+const authExpert = async (req, res, next) => {
     let token;
     if (req.headers.authorization) {
         try {
@@ -10,7 +9,8 @@ const authAdmin = async (req, res, next) => {
 
             const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY)
 
-            req.user = await helpers.findAdminById(decoded._id)
+            req.user = await helpers.findUserById(decoded._id)
+
             next()
 
         } catch (error) {
@@ -20,9 +20,8 @@ const authAdmin = async (req, res, next) => {
     if (! token) {
         return res.status(400).json({msg: "Invalid authentication."})
     }
-
 }
 
 module.exports = {
-    authAdmin
+    authExpert
 }

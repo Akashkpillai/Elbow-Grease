@@ -4,7 +4,7 @@ const {REFRESH_TOKEN_SECRET, ACCESS_TOKEN_SECRET, ACTIVATION_TOKEN_SECRET} = pro
 const auth = (req, res, next) => {
     try {
         const token = req.header("Authorization")
-        if (!token) {
+        if (! token) {
             return res.status(400).json({msg: "Invalid authentication."})
         }
         jwt.verify(token, ACCESS_TOKEN_SECRET, (err, user) => {
@@ -12,6 +12,7 @@ const auth = (req, res, next) => {
                 return res.status(400).json({msg: "Invalid authentication."})
             }
             req.user = user
+            // console.log('user',req.user);
             next();
         })
     } catch (error) {

@@ -2,8 +2,11 @@ const express = require('express')
 const router = express.Router()
 const Admins = require('../model/adminModel')
 const Users = require('../model/userModel')
+const Expert = require('../model/expertModal')
 const jwt = require('jsonwebtoken')
 const Category = require('../model/CategoryModel')
+const {uploadToCloudinary} = require('../config/ColudUpload')
+const Service = require('../model/ServiceModel')
 
 
 const adminLogin = async (req, res) => {
@@ -112,7 +115,6 @@ const addCategory = async (req, res) => {
 
 const deletCategory = async (req, res) => {
     id = req.params.id
-    // console.log(id);
     try {
         if (id) {
             const user = await Category.findByIdAndDelete({_id: id})
@@ -125,6 +127,161 @@ const deletCategory = async (req, res) => {
     }
 }
 
+const addService = async(req,res) =>{
+    try {
+        const data = req.body.values;
+        // console.log(data);
+        const images = data.image.fileList;
+
+        //  console.log(images)
+
+        const dataimages = [];
+        const bar = new Promise((resolve, reject) => {
+          images.forEach(async (image, index, array) => {
+            // console.log(image);
+            const datas = await uploadToCloudinary(image.thumbUrl, "Service-images");
+  
+            // console.log(datas.url);
+  
+            dataimages.push(datas.url);
+  
+            if (index === array.length - 1) resolve();
+          });
+        });
+        bar.then(() => {
+          const datenow = new Date();
+          const Dateposted = datenow.toDateString();
+        //   console.log(dataimages, "this is data");
+          const servicedetails = new Service({
+            title: data.title,
+            price: data.Price,
+            note:data.note,
+            discription:data.discription,
+            image: dataimages,
+            date: Dateposted,
+          });
+          servicedetails.save().then(() => {
+            res.json({ msg: "added successfully" });
+          });
+        });
+      } catch (error) {
+        console.log(error);
+      }
+}
+
+const getService = async(req,res)=>{
+    try {
+        const service = await Service.find()
+        if (!service) {
+            return res.status(400).json({msg: "No data"});
+        } else {
+            return res.json({msg: "Services!", details: service});
+        }
+    } catch (error) {
+        return res.status(500).json({msg: error.message})
+    }
+}
+
+const expertDetailes = async (req, res) => {
+    const users = await Expert.find({status:"pending"})
+    try {
+        if (!users) {
+            return res.status(400).json({msg: "No Expert found"});
+        } else {
+            return res.json({msg: "Found it!", details: users});
+        }
+    } catch (error) {
+        return res.status(500).json({msg: error.message});
+    }
+}
+
+const acceptedExperts = async (req, res) => {
+    const users = await Expert.find({
+        $or:[
+        {status:"accepted"},
+        {status:"blocked"}
+        ]
+    }
+    )
+    try {
+        if (!users) {
+            return res.status(400).json({msg: "No Experts found"});
+        } else {
+            return res.json({msg: "Found it!", details: users});
+        }
+    } catch (error) {
+        return res.status(500).json({msg: error.message});
+    }
+}
+
+const acceptExperts = async(req,res) =>{
+    const id = req.params.id;
+    try {
+        if (id) {
+            const user = await Expert.findByIdAndUpdate({
+                _id: id
+            }, {status:"accepted"})
+            return res.json({msg: "Accepted Updated!", details: user});
+        } else {
+            return res.status(400).json({msg: "Not updated"});
+        }
+
+    } catch (error) {
+        return res.status(500).json({msg: error.message});
+    }
+}
+
+const blockExpert = async(req,res) =>{
+    const id = req.params.id;
+    try {
+        if (id) {
+            const user = await Expert.findByIdAndUpdate({
+                _id: id
+            },{status:"blocked" })
+            // console.log(user);
+            return res.json({msg: "Block Updated!", details:user});
+        } else {
+            return res.status(400).json({msg: "Not updated"});
+        }
+
+    } catch (error) {
+        return res.status(500).json({msg: error.message});
+    }
+}
+
+const unblockExpert = async(req,res) =>{
+    const id = req.params.id;
+    try {
+        if (id) {
+            const user = await Expert.findByIdAndUpdate({
+                _id: id
+            },{status:"accepted"})
+            // console.log(user);
+            return res.json({msg: "Block Updated!", details:user});
+        } else {
+            return res.status(400).json({msg: "Not updated"});
+        }
+
+    } catch (error) {
+        return res.status(500).json({msg: error.message});
+    }
+}
+
+const deleteServices = async (req, res) => {
+    id = req.params.id
+    console.log(id);
+    try {
+        if (id) {
+            const service = await Service.findByIdAndDelete({_id:id})
+            console.log(service);
+            return res.json({msg: "Deleted successfuly!"});
+        } else {
+            return res.status(400).json({msg: "No data deleted"});
+        }
+    } catch (error) {
+        return res.status(500).json({msg: error.message})
+    }
+}
 
 
 
@@ -137,5 +294,13 @@ module.exports = {
     UnblockUser,
     category,
     addCategory,
-    deletCategory
+    deletCategory,
+    addService,
+    getService,
+    expertDetailes,
+    acceptExperts,
+    blockExpert,
+    acceptedExperts,
+    deleteServices,
+    unblockExpert,
 }

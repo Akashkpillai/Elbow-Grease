@@ -1,5 +1,5 @@
 import {useEffect} from 'react'
-import './home.css'
+import './OHome.css'
 import {Link, useNavigate} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import axios from '../../../api/axios'
@@ -8,7 +8,7 @@ import plumber from '../../../asset/plumber2 (1).jpg'
 import ele from '../../../asset/ele1.jpg'
 import painter from '../../../asset/Painter1.jpg'
 import jwt from "jwt-decode"
-import { userLoginDetails,userAllDetails } from '../../Redux/adminReducer';
+import { userLoginDetails } from '../../Redux/adminReducer';
 
 import {
     Button,
@@ -24,7 +24,7 @@ import {
 import {margin} from '@mui/system'
 
 
-function Userhome() {
+function Ohome() {
     
     const details = [
         {
@@ -44,33 +44,21 @@ function Userhome() {
     const navigate = useNavigate()
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        const token = localStorage.getItem('userInfo')
-        if (token) {
-            const user = jwt(token)
-            getUsersDetails()
-            async function getUsersDetails() {
-                const config = {
-                    headers: {
-                      Accept: 'application/json',
-                      Authorization:token,
-                      'Content-Type': 'application/json',
-                    },
-                  };
-              const response = await axios.get('http://localhost:3500/users/info',config);
-              const details = response.data
-              dispatch(userAllDetails(details))
-            }
-            dispatch(userLoginDetails(user));
-            if(user){
-                navigate('/userHome')
-            }else{
-                navigate('/login')
-            }
-        }else{
-            navigate('/login')
-        }
-    }, [navigate,dispatch])
+    // useEffect(() => {
+    //     const token = localStorage.getItem('userInfo')
+    //     if (token) {
+    //         const user = jwt(token)
+    //         console.log(user);
+    //         dispatch(userLoginDetails(user));
+    //         if(user){
+    //             navigate('/')
+    //         }else{
+    //             navigate('/login')
+    //         }
+    //     }else{
+    //         navigate('/login')
+    //     }
+    // }, [navigate,dispatch])
 
 
     return (
@@ -145,4 +133,4 @@ function Userhome() {
     )
 }
 
-export default Userhome
+export default Ohome
