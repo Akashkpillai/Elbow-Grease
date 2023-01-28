@@ -38,7 +38,7 @@ const orderSchema = new Schema({
     },
     status:{
         type:String,
-        default:"pending"
+        default:"Payment pending"
     },
     fixedChargeStatus:{
         type:String,

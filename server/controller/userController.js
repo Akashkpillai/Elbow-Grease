@@ -169,13 +169,7 @@ const userCtrl = {
             return res.status(500).json({msg: error.message})
         }
     },
-    booking:async(req,res)=>{
-        try {
-            
-        } catch (error) {
-            
-        }
-    }
+
 }
 
 function validateEmail(email) {
