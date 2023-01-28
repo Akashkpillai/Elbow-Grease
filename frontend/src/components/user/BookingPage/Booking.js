@@ -1,50 +1,80 @@
-import React from 'react'
-import './booking.css'
-import {
-    MDBCard,
-    MDBCardBody,
-  } from 'mdb-react-ui-kit';
-import { Button,Rating } from '@mui/material';
+import {useState} from 'react'
+import {Button, Card, CardContent, Grid, TextField, Typography,Container, MenuItem,Select} from '@mui/material'
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-const users =[{name:"Akash"},{name:"Akhil"},{name:"Abhi"},{name:"Devan"},{name:"Navas"}]
 
 function Booking() {
+
+  const catrgory = useSelector((state) => state.admin.category);
+
+
+const [address,setAddress] = useState()
+const [pincode,setPincode] = useState()
+const [datetime,setDatetime] = useState()
+const [service,setService] = useState()
+const [about,setAbout] = useState()
+
+
+  const handleChange= (e)=>{
+    e.preventDefault()
+    setService(e.target.value)
+  }
+
   return (
     <>
-    <div className='maindivbook'> 
-        <div className='proceed'>
-    <MDBCard className='cardbook' style={{backgroundColor:'whitesmoke',width:'50%',boxShadow:'0px 3px 0px 5px'}}>
-      <MDBCardBody>Please Proceed Booking.</MDBCardBody>
-      <Link to={''}>
-      <Button variant="contained" size='small' color="success">Proceed</Button>
-      </Link>
-    </MDBCard>
-        </div>
-        <div className='booktext'>
-            <h1>TERM AND CONDITION</h1>
-            <p>1.Material and spares will be charged extra. Drainage cleaning will be done only on quotation basis</p>
-            <p>2.An amount of Rs.200 will be charged in case the customer decides not to proceed with the service, after inspection is done and a quote given. An additional Rs. 150 will be charged for work done after 8 PM till 7 AM and on public holidays.</p>
-            <p>3.Our service partner will help you with a quotation in case of long hour work schedules. Please confirm the quotation before initiating work to avoid any conflict on service completion.</p>
-        </div>
-        <div className='review'>
-           <h1>CUSTOMER REVIEWS</h1>
-           <div className='ratingflex flex-wrap'>
+    <div className='contact'>
+    <Container>
+      <Typography margin={'1rem'} gutterBottom variant='h4' align='center'>
+        Book Your expert
+      </Typography>
+        <Card style={{maxWidth:700,margin:'0 auto',padding:'20px 5px',boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)"}} >
+        <CardContent>
+          <form>
+          <Grid container spacing={1}>
+           
+            <Grid xs={12} item>
+              <TextField multiline rows={5} placeholder='Address'   type='text' value={address} onChange={(e)=>{setAddress(e.target.value)}} variant='outlined' fullWidth required/>       
+            </Grid>
+            <Grid xs={12}  item>
+              <TextField type="number" value={pincode}   onChange={(e)=>{setPincode(e.target.value)}} placeholder='Pincode' variant='outlined' fullWidth required/>       
+            </Grid>
+            <Grid xs={12}  item>
+              <TextField type='datetime-local'   value={datetime} onChange={(e)=>{setDatetime(e.target.value)}} variant='outlined' fullWidth required/>       
+            </Grid>
+            <Grid sm={12} item>
+            <Typography variant='body2' gutterBottom >
+              Service
+            </Typography>
+            <select onChange={handleChange}  className='w-full' style={{border:"solid 1px grey"}} >
+              <option disabled selected>Select your option</option>
             {
-              users.map((item)=>{
-            return(
-            <div className='rating'>
-              <p className=''>{item.name}</p>
-              <Rating name="read-only" value={4} readOnly /> 
-            </div>
-                  )
-                })
-              }
-              </div>
-        </div>
+              catrgory.map((ser)=>{
+                return(
+                     <option value={ser.category} >{ser.category}</option>
+                     )
+                    })  
+                  }
+                  </select>
+            </Grid>
+            <Grid xs={12} item>
+              <TextField multiline rows={5} placeholder='Discription'   type='text' value={about} onChange={(e)=>{setAbout(e.target.value)}} variant='outlined' fullWidth />       
+            </Grid>
+            <Grid xs={12} sm={3} item >
+              <Button type='submit'  variant='contained' fullWidth color='success'>Submit</Button>       
+            </Grid>
+          </Grid>
+          </form>
+        </CardContent>
+      </Card>
+  </Container>
     </div>
     </>
   )
 }
 
 export default Booking
+
+
+
+

@@ -25,16 +25,6 @@ const userSchema=new Schema({
         type:String,
         default:"https://res.cloudinary.com/dszrnazsx/image/upload/v1673862714/Profile_jmbkz2.png"
     },
-    address:[{
-        name : {type:String},
-        mobile : {type:Number},
-        address1: {type:String},
-        address2 :{type:String},
-        city : {type:String},
-        state : {type:String},
-        zip :{type:String}
-    }]
-
 },{timestamps : true})
 
 const User=mongoose.model('User',userSchema)

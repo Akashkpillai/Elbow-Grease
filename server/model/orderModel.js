@@ -7,34 +7,40 @@ const orderSchema = new Schema({
         type:Schema.Types.ObjectId,
         ref:"User"
     },
-    addtionalDiscription:{
+    discription:{
         type:String
     },
-    Date:{
+    date:{
         type:String,
         required:true
     },
     address:{
         type:Object
     },
-    location:{
+    pincode:{
         type:String,
         required:true
     },
     category:{
         type:String,
+        required:true
     },
     isAccepted:{
+        type:Boolean,
         default:false
     },
     accepteBy:{
         type:Schema.Types.ObjectId,
         ref:"Expert"
     },
-    Payment:{
+    payment:{
         type:String
     },
-    Status:{
+    status:{
+        type:String,
+        default:"pending"
+    },
+    fixedChargeStatus:{
         type:String,
         default:"pending"
     } 

@@ -8,6 +8,7 @@ module.exports = {
             try {
                 const user = Admin.findOne({_id:userId})
                 resolve(user)
+                console.log(user,"this is user:");
             } catch (error) {
                 reject
             }

@@ -41,12 +41,9 @@ function AdminLogin() {
                 err: '',
                 success: res.data.msg
             });
-            // console.log(res.data.token);
            if(res.data.token){
-             //token
             localStorage.setItem('adminToken',res.data.token)
             const admin = jwt(res.data.token);
-            // console.log(admin)
             dispatch(adminLoginDetails(admin))
             localStorage.setItem('adminDetails',admin.email)
              navigate('/admin/home')

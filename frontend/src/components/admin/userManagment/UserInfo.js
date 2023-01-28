@@ -113,7 +113,6 @@ function AdminUserInfoPage() {
           pagination
           fixedHeader
           fixedHeaderScrollHeight="450px"
-          // selectableRows
           selectableRowsHighlight
           highlightOnHover
         />

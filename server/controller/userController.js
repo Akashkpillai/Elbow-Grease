@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 const User = require('../model/userModel')
 const bycrypt = require('bcrypt')
 const sendMail = require('./sendMail')
+const Service = require('../model/ServiceModel')
 require('dotenv').config()
 
 
@@ -124,7 +125,7 @@ const userCtrl = {
     forgotPassword: async (req, res) => {
         try {
             const {email} = req.body
-            console.log(email);
+            // console.log(email);
             const user = await User.findOne({email})
             if (!user) {
                 return res.status(400).json({msg: "This email dose not exist"});
@@ -159,6 +160,21 @@ const userCtrl = {
         } catch (error) {
             return res.status(500).json({msg: error.message})
         }
+    },
+    getServices:async(req,res)=>{
+        try {
+            const sevices = await Service.find()
+            res.status(200).json({msg:"services",data:sevices})
+        } catch (error) {
+            return res.status(500).json({msg: error.message})
+        }
+    },
+    booking:async(req,res)=>{
+        try {
+            
+        } catch (error) {
+            
+        }
     }
 }
 
@@ -179,6 +195,8 @@ const createRefreshToken = (payload) => {
     return jwt.sign(payload, REFRESH_TOKEN_SECRET, {expiresIn: '7d'})
 
 }
+
+
 
 
 module.exports = userCtrl

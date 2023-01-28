@@ -21,7 +21,7 @@ router.put('/delete_service/:id', services.deleteServices)
 router.get('/expertPending', adminauth.authAdmin, services.expertDetailes)
 router.get('/acceptedExperts',adminauth.authAdmin,services.acceptedExperts)
 router.put('/accept/:id', services.acceptExperts)
-router.put('/expertEblock/:id', services.blockExpert)
+router.put('/expertEblock/:id',services.blockExpert)
 
 
 module.exports = router

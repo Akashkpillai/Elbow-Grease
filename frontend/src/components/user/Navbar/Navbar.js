@@ -32,9 +32,12 @@ const Navbar = () => {
         </Link>
           {/* <h1>Login</h1> */}
         <ul className={Mobile ? "nav-links-mobile" : "nav-links"} onClick={() => setMobile(false)}>
-          <Link to='/userHome' className='home'>
+          {details?
+            <Link to='/userHome' className='home'>
             <li>Home</li>
-          </Link>
+          </Link>:
+          ""
+          }
           <Link to='/services' className='services'>
             <li>Services</li>
           </Link>

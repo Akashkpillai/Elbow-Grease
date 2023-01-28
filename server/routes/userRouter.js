@@ -20,6 +20,10 @@ router.post('/reset', auth, services.resetPassword)
 
 router.get('/info', authUser, services.getUserIfo)
 
+router.get('/services',services.getServices)
+
+router.post('/booking',services.booking)
+
 
 
 
