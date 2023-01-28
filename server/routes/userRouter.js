@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router();
-const services = require('../controller/userController')
+const services = require('../controller/userController');
+const bookingService = require('../controller/bookingController');
 const auth = require("../middleware/auth");
 const {authUser} = require('../middleware/userAuth');
 
@@ -22,9 +23,13 @@ router.get('/info', authUser, services.getUserIfo)
 
 router.get('/services',services.getServices)
 
-router.post('/booking',services.booking)
+router.post('/booking',authUser,bookingService.createBooking)
 
+router.get('/bookingDetails/:id',authUser,bookingService.getBookingById)
 
+router.get('/booking',authUser,bookingService.getBookingByUser);
+
+router.get('/cancelbooking/:id',authUser,bookingService.cancelBooking);
 
 
 module.exports = router
