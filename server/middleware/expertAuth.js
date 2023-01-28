@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
-const helpers = require('../helpers/adminHelper')
+const helpers = require('../helpers/adminHelper');
+const Expert = require('../model/expertModal');
 
 const authExpert = async (req, res, next) => {
     let token;
@@ -9,7 +10,7 @@ const authExpert = async (req, res, next) => {
 
             const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY)
 
-            req.user = await helpers.findUserById(decoded._id)
+            req.expert = await Expert.findOne({_id:decoded._id})
 
             next()
 

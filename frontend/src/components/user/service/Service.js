@@ -1,5 +1,5 @@
-import React from 'react'
-import { Box, Button, Card, CardActions, CardContent, CardMedia,Typography } from '@mui/material'
+import React, { useEffect, useState } from 'react'
+import { Button } from '@mui/material'
 import {
     MDBCard,
     MDBCardTitle,
@@ -8,39 +8,28 @@ import {
     MDBCardImage,
     MDBRow,
     MDBCol,
-    MDBBtn,
   } from 'mdb-react-ui-kit';
 import './service.css'
 import image from '../../../asset/male-electrician-works-switchboard-with-electrical-connecting-cable.jpg'
-import plumber from '../../../asset/plumber2 (1).jpg'
-import ele from '../../../asset/ele1.jpg'
-import painter from '../../../asset/Painter1.jpg'
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import axios from '../../../api/axios';
 
 
 function Service() {
-    const details = [
-        {
-            name: "Plumber",
-            pic:plumber ,
-            deiscription: " ARE YOU LOOKING FOR TRUSTED PLUMBER SERVICES NEAR YOU?",
-            price:"₹300",
-            note:"only mentioning the visiting charge"
-        }, {
-            name: "Electrician",
-            pic: ele,
-            deiscription: " ARE YOU LOOKING FOR TRUSTED ELECTRICIAN SERVICES NEAR YOU?",
-            price:"₹300",
-            note:"only mentioning the visiting charge"
-            
-        }, {
-            name: "Painter",
-            pic: painter,
-            deiscription: " ARE YOU LOOKING FOR TRUSTED PAINTER SERVICES NEAR YOU?",
-            price:"₹300",
-            note:"only mentioning the visiting charge"
-        }
-    ]
+
+  const [service,setService] = useState();
+
+  useEffect(()=>{
+   getAllServices();
+  },[service])
+    
+  async function getAllServices() {
+    const response = await axios.get('/users/services');
+    setService(response.data.data);
+  }
+   
+      
   return (
  <>
       <div className="relative h-full" >
@@ -51,17 +40,17 @@ function Service() {
         </h1>
       </div>
       {
-        details.map((item)=>{
+        service?.map((item)=>{
             return(
       <div className='bg-white services mb-6'>
       <MDBCard className='sercard ' style={{ maxWidth: '940px', }}>
       <MDBRow className=''>
-        <MDBCol md='4'>
-          <MDBCardImage src={item.pic} alt='...' fluid />
+        <MDBCol className='mt-6'>
+          <MDBCardImage src={item.image} alt='...' fluid />
         </MDBCol>
         <MDBCol md='8'>
           <MDBCardBody>
-            <MDBCardTitle>{item.name}</MDBCardTitle>
+            <MDBCardTitle>{item.title}</MDBCardTitle>
             <MDBCardText>
               {item.deiscription}
             </MDBCardText>
