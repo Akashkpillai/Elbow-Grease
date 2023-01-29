@@ -68,7 +68,7 @@ const getBookingByCategory = async (req, res) => {
         try{
             let category = req.expert.serviceType;
             // show only not accepted booking for expert with category
-            let booking =await Booking.find({category, isAccepted: false});
+            let booking =await Booking.find({category, isAccepted: false });
             if(!booking){
                 return res.status(404).json({message: "No New booking found for this category"});
             }
