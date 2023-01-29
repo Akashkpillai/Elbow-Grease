@@ -51,7 +51,7 @@ const getAllBooking = async (req, res) => {
 // @access  Public
 const getBookingById = async (req, res) => {
     try{
-        let booking = await Booking.findById(req.params.id).populate('userId').select('-password, -__v, -createdAt, -updatedAt, -isVerified, -role').populate('accepteBy').select('-password, -__v, -createdAt, -updatedAt, -isVerified, -role');
+        let booking = await Booking.findById(req.params.id).populate('userId').select('-password, -__v, -createdAt, -updatedAt').populate('accepteBy').select('-password, -__v, -createdAt, -updatedAt');
         if(!booking){
             return res.status(404).json({message: "Booking not found"});
         }

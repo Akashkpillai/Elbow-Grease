@@ -27,6 +27,8 @@ router.post('/booking',authUser,bookingService.createBooking)
 
 router.get('/bookingDetails/:id',authUser,bookingService.getBookingById)
 
+router.get('/payment',authUser,bookingService.paymentCompleted)
+
 router.get('/booking',authUser,bookingService.getBookingByUser);
 
 router.get('/cancelbooking/:id',authUser,bookingService.cancelBooking);
