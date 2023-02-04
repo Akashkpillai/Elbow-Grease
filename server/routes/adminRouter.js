@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const services = require('../controller/adminController')
 const adminauth = require('../middleware/authAdmin')
+const booking = require('../controller/bookingController')
 
 
 router.post('/admin', services.adminLogin)
@@ -22,6 +23,9 @@ router.get('/expertPending', adminauth.authAdmin, services.expertDetailes)
 router.get('/acceptedExperts',adminauth.authAdmin,services.acceptedExperts)
 router.put('/accept/:id', services.acceptExperts)
 router.put('/expertEblock/:id',services.blockExpert)
+
+router.get('/booking-page',booking.getAllBooking)
+router.get('/booking-details/:id',booking.getBookingById)
 
 
 module.exports = router

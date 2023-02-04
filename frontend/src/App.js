@@ -1,5 +1,4 @@
 import { Routes,Route} from 'react-router-dom'
-import { ToastContainer} from 'react-toastify';
 import{BrowserRouter} from 'react-router-dom'
 import 'react-toastify/dist/ReactToastify.css';
 import Signup from "./pages/user/Signup";
@@ -23,6 +22,9 @@ import ViewServices from './pages/admin/ViewServices';
 import SignUp from './pages/Experts/SignUp';
 import ExpertInfo from './pages/admin/ExpertInfo';
 import ExpertPendingInfo from './pages/admin/PendingExperts';
+import CheckoutSuccess from './components/user/Payment/CheckoutSuccess';
+import CheckoutFailure from './components/user/Payment/CheckoutFailure';
+import ProtectRoute from './components/ProtectedRoute/userProtected';
 
 export default function App() {
 
@@ -34,18 +36,24 @@ export default function App() {
  <BrowserRouter>
  <Routes> 
       {/* user */}
+     
      <Route path="/login"  element={<LoginUser />} />
      <Route path="/signup" element={<Signup />} />
      <Route path="/user/activate/:activation_token" element={<ActivationEmail />} />
      <Route path="/navbar" element={<Navbar />} />
-     <Route path="/" element={<Ohome />} />
-     <Route path="/userHome" element={<Home />} />
-     <Route path="/services" element={<Services />} />
-     <Route path="/booking" element={<Book/>} />
-     <Route path="/contact" element={<ContactUs/>} />
      <Route path="/forgot_password" element={<Forgotpassword/>} />
      <Route path="/users/reset/:token" element={<Reset/>} />
+     <Route path="/" element={<Ohome />} />
+     <Route path="/services" element={<Services />} />
+     <Route element={<ProtectRoute/>}>
+     <Route path="/userHome" element={<Home />} />
+     <Route path="/booking" element={<Book/>} />
+     <Route path="/contact" element={<ContactUs/>} />
      <Route path="/profile" element={<Profile/>} />
+     <Route path="/checkout-success" element={<CheckoutSuccess/>} />
+     <Route path="/checkout-failed" element={<CheckoutFailure/>} />
+     </Route>
+
 
       {/* admin */}
      <Route path="/admin" element={<AdLogin />} />
@@ -67,7 +75,6 @@ export default function App() {
 
  </Routes>
  </BrowserRouter> 
- <ToastContainer />    
     </div>
   )
 }

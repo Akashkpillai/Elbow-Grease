@@ -123,7 +123,9 @@ function Ohome() {
                     <h3>JOIN WORLDS LARGEST
                         <br/>
                         SERVICE NETWORK</h3>
-                        <Button variant="contained" size='small' color="success">Register as partner</Button>
+                        <Link to="/experts/signup">
+                            <Button variant="contained" size='small' color="success">Register as partner</Button>
+                        </Link>
                 </div>
                 <div className='wegimg'>
                     <img className='object-contain'src={image}/>

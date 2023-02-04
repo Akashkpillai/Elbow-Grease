@@ -9,9 +9,9 @@ const createBooking = async (req, res) => {
     try{
         let {discription, date, address, pincode, category, payment} = req.body;
         let userId = req.user._id;
-        let booking = new Booking({userId, discription, date, address, pincode, category, payment});
+        let booking = new Booking({userId, discription, date, address, pincode, category, payment}) ;
         await booking.save();
-        res.json({ message: "Booking successfully. Pay the amount to confirm the booking"});
+        res.json({ message: "Booking successfully. Pay the amount to confirm the booking",data:booking});
     }
     catch(err){
         console.log(err);
@@ -21,14 +21,16 @@ const createBooking = async (req, res) => {
 // payment completed
 const paymentCompleted = async (req, res) => {
     try{
-        let bookingId = req.params.id || req.body.id;
-        let booking = await Booking.findOne(  {_id: bookingId} );
+        console.log(req.params.id);
+        let bookingId = req.params.id ||  req.body.id;
+        let booking = await Booking.findOne(  {id: bookingId} );
         if(!booking){
             return res.status(404).json({message: "Booking not found"});
         }
         booking.status = "Payment completed";
+        booking.fixedChargeStatus = "200";
         await booking.save();
-        res.json({message: "Booking confirmed. Await for the expert to accept the booking"});
+        res.json({message: "Booking confirmed. Await for the expert to accept the booking"}); 
     }catch(err){
         console.log(err);
         res.status(500).json({message: "Server Error"});
@@ -84,7 +86,7 @@ const getBookingByCategory = async (req, res) => {
 const getAcceptedBooking = async (req, res) => {
     try{
         let expertId = req.expert._id;
-        let booking = await Booking.find({accepteBy: expertId, isAccepted: true}).populate('userId').select('-password, -__v, -createdAt, -updatedAt, -isVerified, -role');
+        let booking = await Booking.find({accepteBy: expertId, isAccepted: true}).populate('userId').select('-password, -__v, -createdAt, -updatedAt, -isVerified');
         if(!booking){
             return res.status(404).json({message: "No booking found"});
         }
@@ -130,6 +132,7 @@ const acceptBooking = async (req, res) => {
     try{
         let expertId = req.expert._id;
         let bookingId = req.params.id || req.body.id;
+        
         // check if booking is already accepted by other expert
 
         let booking =await Booking.findOne({ isAccepted: false});

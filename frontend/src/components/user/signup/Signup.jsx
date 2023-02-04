@@ -14,7 +14,7 @@ const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
 const PHONE_REGEX = /^(\d{10}|[(]?[0-9]+[)])/i;
 
-const REGISTER_URL = 'http://localhost:3500/users/signup'
+const REGISTER_URL = '/users/signup'
 
 function Signup() {
   let navigate = useNavigate();
@@ -102,7 +102,7 @@ function Signup() {
       return;
     }
     try {
-      const res = await axios.post(REGISTER_URL,details)
+      const res = await axios.post('/users/signup',details)
       setUser({...user,err:'',success:res.data.msg});
       
     } catch (err) {

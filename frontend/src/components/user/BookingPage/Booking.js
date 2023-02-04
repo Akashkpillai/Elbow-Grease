@@ -1,80 +1,205 @@
-import {useState} from 'react'
-import {Button, Card, CardContent, Grid, TextField, Typography,Container, MenuItem,Select} from '@mui/material'
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import {useEffect, useState} from 'react'
+import {
+    Button,
+    Card,
+    CardContent,
+    Grid,
+    TextField,
+    Typography,
+    Container,
+} from '@mui/material'
+import {Link, useLocation} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import {userBookingDetails} from '../../Redux/adminReducer'
+import axios from '../../../api/axios'
+import {toast} from 'react-toastify'
 
 
 function Booking() {
 
-  const catrgory = useSelector((state) => state.admin.category);
+    const dispatch = useDispatch()
+    const catrgory = useSelector((state) => state.admin.category);
+    const user = useSelector((state) => state.admin.userToken)
 
 
-const [address,setAddress] = useState()
-const [pincode,setPincode] = useState()
-const [datetime,setDatetime] = useState()
-const [service,setService] = useState()
-const [about,setAbout] = useState()
+    // console.log(user);
 
 
-  const handleChange= (e)=>{
-    e.preventDefault()
-    setService(e.target.value)
-  }
+    const [address, setAddress] = useState()
+    const [pincode, setPincode] = useState()
+    const [date, setDatetime] = useState()
+    const [category, setService] = useState()
+    const [discription, setAbout] = useState()
 
-  return (
-    <>
-    <div className='contact'>
-    <Container>
-      <Typography margin={'1rem'} gutterBottom variant='h4' align='center'>
-        Book Your expert
-      </Typography>
-        <Card style={{maxWidth:700,margin:'0 auto',padding:'20px 5px',boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)"}} >
-        <CardContent>
-          <form>
-          <Grid container spacing={1}>
-           
-            <Grid xs={12} item>
-              <TextField multiline rows={5} placeholder='Address'   type='text' value={address} onChange={(e)=>{setAddress(e.target.value)}} variant='outlined' fullWidth required/>       
-            </Grid>
-            <Grid xs={12}  item>
-              <TextField type="number" value={pincode}   onChange={(e)=>{setPincode(e.target.value)}} placeholder='Pincode' variant='outlined' fullWidth required/>       
-            </Grid>
-            <Grid xs={12}  item>
-              <TextField type='datetime-local'   value={datetime} onChange={(e)=>{setDatetime(e.target.value)}} variant='outlined' fullWidth required/>       
-            </Grid>
-            <Grid sm={12} item>
-            <Typography variant='body2' gutterBottom >
-              Service
-            </Typography>
-            <select onChange={handleChange}  className='w-full' style={{border:"solid 1px grey"}} >
-              <option disabled selected>Select your option</option>
-            {
-              catrgory.map((ser)=>{
-                return(
-                     <option value={ser.category} >{ser.category}</option>
-                     )
-                    })  
-                  }
-                  </select>
-            </Grid>
-            <Grid xs={12} item>
-              <TextField multiline rows={5} placeholder='Discription'   type='text' value={about} onChange={(e)=>{setAbout(e.target.value)}} variant='outlined' fullWidth />       
-            </Grid>
-            <Grid xs={12} sm={3} item >
-              <Button type='submit'  variant='contained' fullWidth color='success'>Submit</Button>       
-            </Grid>
-          </Grid>
-          </form>
+    const [response, setResponse] = useState()
+
+    const value = {
+        address,
+        pincode,
+        date,
+        category,
+        discription
+    }
+    const location = useLocation()
+    const bookDetails = location.state
+    console.log(bookDetails);
+
+
+    const submit = async (e) => {
+        e.preventDefault()
+        try {
+            const config = {
+                headers: {
+                    Accept: 'application/json',
+                    Authorization: user,
+                    'Content-Type': 'application/json'
+                }
+            };
+            const res = await axios.post('/users/booking', value, config)
+            // console.log(res);
+            const msg = res.data.message
+            dispatch(userBookingDetails(res.data.data))
+            setResponse(res.data.data)
+            toast.success(msg)
+            payment()
+        } catch (error) {
+            const msg = error.response.data.message
+            toast.error(msg)
+        }
+    }
+
+
+    const payment = async () => {
+        axios.post('/users/create-checkout-session', {response}).then((res) => {
+            console.log(res);
+            if (res.data.url) {
+                window.location.href = res.data.url
+            }
+        }).catch((err) => {
+            console.log(err);
+        })
+    }
+    const handleChange = (e) => {
+        e.preventDefault()
+        setService(e.target.value)
+    }
+
+    return (
+        <>
+            <div className='contact'>
+                <Container>
+                    <Typography margin={'1rem'}
+                        gutterBottom
+                        variant='h4'
+                        align='center'>
+                        Book Your expert
+                    </Typography>
+                    <Card style={
+                        {
+                            maxWidth: 700,
+                            margin: '0 auto',
+                            padding: '20px 5px',
+                            boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)"
+                        }
+                    }>
+                        <CardContent>
+                            <form onSubmit={submit}>
+                                <Grid container
+                                    spacing={1}>
+
+                                    <Grid xs={12}
+                                        item>
+                                        <TextField multiline
+                                            rows={5}
+                                            placeholder='Address'
+                                            type='text'
+                                            value={address}
+                                            onChange={
+                                                (e) => {
+                                                    setAddress(e.target.value)
+                                                }
+                                            }
+                                            variant='outlined'
+                                            fullWidth
+                                            required/>
+                                    </Grid>
+                                <Grid xs={12}
+                                    item>
+                                    <TextField type="number"
+                                        value={pincode}
+                                        onChange={
+                                            (e) => {
+                                                setPincode(e.target.value)
+                                            }
+                                        }
+                                        placeholder='Pincode'
+                                        variant='outlined'
+                                        fullWidth
+                                        required/>
+                                </Grid>
+                            <Grid xs={12}
+                                item>
+                                <TextField type='datetime-local'
+                                    value={date}
+                                    onChange={
+                                        (e) => {
+                                            setDatetime(e.target.value)
+                                        }
+                                    }
+                                    variant='outlined'
+                                    fullWidth
+                                    required/>
+                            </Grid>
+                        <Grid sm={12}
+                            item>
+                            <Typography variant='body2' gutterBottom>
+                                Service
+                            </Typography>
+                            <select onChange={handleChange}
+                                className='w-full'
+                                style={
+                                    {border: "solid 1px grey"}
+                            }>
+                                <option disabled selected>Select your option</option>
+                                {
+                                catrgory.map((ser) => {
+                                    return (
+                                        <option value={
+                                            ser.category
+                                        }>
+                                            {
+                                            ser.category
+                                        }</option>
+                                    )
+                                })
+                            } </select>
+                        </Grid>
+                        <Grid xs={12}
+                            item>
+                            <TextField multiline
+                                rows={5}
+                                placeholder='Discription'
+                                type='text'
+                                value={discription}
+                                onChange={
+                                    (e) => {
+                                        setAbout(e.target.value)
+                                    }
+                                }
+                                variant='outlined'
+                                fullWidth/>
+                        </Grid>
+                    <Grid xs={12}
+                        sm={3}
+                        item>
+                        <Button type='submit' variant='contained' fullWidth color='success'>Submit</Button>
+                    </Grid>
+                </Grid>
+            </form>
         </CardContent>
-      </Card>
-  </Container>
-    </div>
-    </>
-  )
+    </Card>
+</Container></div></>
+    )
 }
 
 export default Booking
-
-
-
-

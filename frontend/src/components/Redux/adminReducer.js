@@ -6,6 +6,7 @@ const INITIAL_STATE = {
   adminDetails: '',
   userAllDetails:'',
   userToken:'',
+  bookingDetails:''
 };
 
 
@@ -32,6 +33,16 @@ const loginSlice = createSlice({
         let { adminDetails } = state;
         adminDetails = action.payload;
         return { ...state, adminDetails };
+      },
+      userBookingDetails: (state,action) =>{
+        let { bookingDetails } = state;
+        bookingDetails = action.payload;
+        return {...state,bookingDetails};
+      },
+      clearBookingDetails: (state,action) =>{
+        let { bookingDetails } = state
+        bookingDetails = false;
+        return{...state,bookingDetails}
       },
       clearUserLoginDetails: (state, action) => {
         let { userDetails } = state;
@@ -84,6 +95,8 @@ const loginSlice = createSlice({
     userToken,
     clearUserToken,
     categoryDetails,
+    userBookingDetails,
+    clearBookingDetails,
   } = loginSlice.actions;
   
   // this is for configureStore
