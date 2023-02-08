@@ -42,7 +42,7 @@ function Service() {
       {
         service?.map((item)=>{
             return(
-      <div className='bg-white services mb-6'>
+      <div className='bg-white flex flex-col justify-center items-center services mb-6'>
       <MDBCard className='sercard ' style={{ maxWidth: '940px', }}>
       <MDBRow className=''>
         <MDBCol className='mt-6'>

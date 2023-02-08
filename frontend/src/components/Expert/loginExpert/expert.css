@@ -2,9 +2,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
 
-.login{
+.exlogin{
    /* background:linear-gradient(to left, rgb(34, 34, 34), rgb(241, 241, 241)); */
-   background-color: rgb(41, 41, 41);
+   /* background-color: rgb(41, 41, 41); */
     margin:0;
     padding:0;
     box-sizing:border-box;
@@ -12,22 +12,21 @@
     font-family: 'Montserrat', sans-serif;
   }
   
-  .login{
+  .exlogin{
     display:flex;
       align-items:center;
       justify-content:center;
-      height:100vh;
+      height:100%;
       width:100%;
   }
-    .form-box{
+    .exform-box{
         width:680px;
-        height:880px;
+        height:750px;
         background-color:rgb(255, 255, 255);
         padding:20px;
         display:flex;
         flex-direction:column;
         justify-content:flex-start;
-        /* opacity:0.5; */
         border-radius:2%;
     }
   .header-form{

@@ -132,17 +132,13 @@ const addService = async(req,res) =>{
         const data = req.body.values;
         // console.log(data);
         const images = data.image.fileList;
-
         //  console.log(images)
-
         const dataimages = [];
         const bar = new Promise((resolve, reject) => {
           images.forEach(async (image, index, array) => {
             // console.log(image);
             const datas = await uploadToCloudinary(image.thumbUrl, "Service-images");
-  
             // console.log(datas.url);
-  
             dataimages.push(datas.url);
   
             if (index === array.length - 1) resolve();

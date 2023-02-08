@@ -3,6 +3,7 @@ const User = require('../model/userModel')
 const bycrypt = require('bcrypt')
 const sendMail = require('./sendMail')
 const Service = require('../model/ServiceModel')
+const { uploadToCloudinary } = require('../config/ColudUpload')
 require('dotenv').config()
 
 
@@ -169,6 +170,23 @@ const userCtrl = {
             return res.status(500).json({msg: error.message})
         }
     },
+    profileEdit:async(req,res)=>{
+        try {
+            // console.log(req.user._id);
+            const {data,name,phone} = req.body
+            // console.log(data);
+            const datas = await uploadToCloudinary(data, "User-Profileimages");
+            const users = await User.findOne(req.user._id)
+            // console.log(datas.url);
+            users.avatar = datas.url
+            users.name = name
+            users.phone = phone
+            users.save()
+            res.status(200).json({msg:"Updated successfully"})
+        } catch (error) {
+            return res.status(500).json({msg: error.message})
+        }
+    }
 
 }
 

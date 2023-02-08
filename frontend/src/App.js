@@ -25,6 +25,14 @@ import ExpertPendingInfo from './pages/admin/PendingExperts';
 import CheckoutSuccess from './components/user/Payment/CheckoutSuccess';
 import CheckoutFailure from './components/user/Payment/CheckoutFailure';
 import ProtectRoute from './components/ProtectedRoute/userProtected';
+import ExpertLogin from './components/Expert/loginExpert/Expertlogin';
+import ProEdit from './pages/user/ProEdit';
+import ViewDeals from './pages/user/ViewDeals';
+import DealDetail from './pages/user/DealDetails';
+import ExDash from './pages/Experts/ExDash';
+import ExEditprofile from './pages/Experts/ExEditprofile';
+import ShowDeals from './components/Expert/showDeals/ShowDeals'
+import GetDealDetailsbyExpert from './components/Expert/showDeals/DealAllDetails'
 
 export default function App() {
 
@@ -52,6 +60,11 @@ export default function App() {
      <Route path="/profile" element={<Profile/>} />
      <Route path="/checkout-success" element={<CheckoutSuccess/>} />
      <Route path="/checkout-failed" element={<CheckoutFailure/>} />
+     <Route path="/editProfile" element={<ProEdit/>} />
+     <Route path="/deal" element={<ViewDeals/>} />
+     <Route path="/deal-deatails" element={<DealDetail/>} />
+     
+
      </Route>
 
 
@@ -69,6 +82,16 @@ export default function App() {
 
       {/* expert */}
      <Route path="/experts/signup" element={<SignUp />} />
+     <Route path="/experts/login" element={<ExpertLogin />} />
+     <Route path="/experts/dashboard" element={<ExDash />} />
+     <Route path="/experts/edit-profile" element={<ExEditprofile />} />
+     <Route path="/expert/view-Deals" element={<ShowDeals />} />
+     <Route path="/experts/deal-deatails" element={<GetDealDetailsbyExpert />} />
+
+
+
+
+
 
 
 

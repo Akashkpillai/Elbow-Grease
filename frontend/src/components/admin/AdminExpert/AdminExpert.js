@@ -126,6 +126,8 @@ function AdminExpertInfoPage() {
                                         Phone
                                     </TableCell>
                                     <TableCell>Address</TableCell>
+                                    <TableCell>City</TableCell>
+                                    <TableCell>Service</TableCell>
                                     <TableCell>Image</TableCell>
                                     <TableCell>Actions</TableCell>
                                 </TableRow>
@@ -144,6 +146,12 @@ function AdminExpertInfoPage() {
                                         }</TableCell>
                                         <TableCell>{
                                             car.address
+                                        }</TableCell>
+                                        <TableCell>{
+                                            car.serviceLocation
+                                        }</TableCell>
+                                        <TableCell>{
+                                            car.serviceType
                                         }</TableCell>
                                         <TableCell>
                                             <img className="w-14 h-12"

@@ -112,7 +112,7 @@ function Signup() {
   };
   return (
     <>
-      <section>
+      <section className="signupU">
         <p
 
           className={errMsg ? "errmsg" : "offscreen"}

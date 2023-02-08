@@ -75,11 +75,10 @@ function Userhome() {
 
     return (
         <div>
-            <div className='bg-white firstdiv mt-5 '>
-                <div className='welcome'>
-                    <h1 className='text-3xl'>Welcome to Elbow Grease</h1>
-                    <p className='text-2xl'>We are the</p>
-                    <p className='text-2xl'>jack of all trade</p>
+            <div className='bg-white md:flex md:flex-row flex flex-col mt-5 '>
+                <div className='welcomeO'>
+                    <h1 className=' font-bold text-2xl lg:text-6xl mb-4'>Welcome to Elbow Grease</h1>
+                    <p className='lg:text-3xl font-bold'>We are the jack of all trade</p>
                 </div>
                 <div className='imagefirst mt-5 '>
                     <img className='object-contain'
@@ -89,13 +88,13 @@ function Userhome() {
             <div className=''>
             
             </div>
-            <div className='bg-zinc-100 secdiv'>
+            <div className='bg-zinc-100'>
                 <h1 className='text-center text-black mus p-3'>Most Used Services</h1>
-                <div className='carddiv'>
+                <div className='carddiv md:flex md:flex-row md:justify-between items-center pl-5 pr-5 flex flex-col justify-center'>
                     {
                     details.map((item) => {
                         return (
-                            <div className='card hover:scale-105 duration-100 p-2' >
+                            <div className='  hover:scale-105 duration-100 p-2 '>
                                 <Card  sx={
                                     {
                                         maxWidth: 300,
@@ -104,7 +103,7 @@ function Userhome() {
                                         
                                     }
                                 }>
-                                    <CardMedia component="img" alt="pic" height="140"
+                                    <CardMedia className='h-56' component="img" alt="pic" height="140"
                                         image={
                                             item.pic
                                         }/>
@@ -120,7 +119,7 @@ function Userhome() {
                                     </CardContent>
                                     <CardActions>
                                         <Link to={'/booking'}>
-                                        <Button variant="contained" size='small' color="success">Book</Button>
+                                        <Button  variant="contained" size='large' color="success">Book</Button>
                                         </Link>
                                     </CardActions>
                                 </Card>
@@ -129,17 +128,18 @@ function Userhome() {
                     })
                 } </div>
             </div>
-            <div className='weg'>
-                <div className='bg-white textA'>
+            
+            <div className='wegO md:flex md:flex-row md:justify-around justify-center items-center flex flex-col'>
+                <div className='bg-white font-bold md:text-4xl text-xl text-center items-center tracking-widest  font-mono mt-5'>
                     <h1 className='text-black'>ARE YOU A SERVICE EXPERT?</h1>
                     <h3>JOIN WORLDS LARGEST
                         <br/>
                         SERVICE NETWORK</h3>
                         <Link to="/experts/signup">
-                            <Button variant="contained" size='small' color="success">Register as partner</Button>
+                            <Button className='m-5 p-2 bg-black' variant="contained" size='small' color="success">Register as partner</Button>
                         </Link>
                 </div>
-                <div className='wegimg'>
+                <div className='justify-center items-center '>
                     <img className='object-contain'src={image}/>
                 </div>
             </div>

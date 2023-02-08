@@ -4,10 +4,12 @@ const Expert = require('../model/expertModal');
 
 const authExpert = async (req, res, next) => {
     let token;
+    // console.log(req.headers.authorization);
     if (req.headers.authorization) {
+       
         try {
             token = req.headers.authorization
-
+            
             const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY)
 
             req.expert = await Expert.findOne({_id:decoded._id})

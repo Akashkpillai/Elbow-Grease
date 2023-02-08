@@ -1,92 +1,118 @@
 import {useState} from 'react'
 import {Button, Card, CardContent, Grid, TextField, Typography,Container, MenuItem,Select, Link} from '@mui/material'
 import { useSelector,useDispatch } from 'react-redux';
-import axios from '../../../api/axios'
-import {toast} from 'react-toastify' 
-import { blue } from '@mui/material/colors';
+import {useFormik} from 'formik'
+import { signupSchema } from './signupSchema';
+import {useNavigate} from 'react-router-dom'
+import {toast} from 'react-toastify'
+import axios from '../../../api/axios';
+import ExNavbar from '../../../pages/Experts/ExNavbar';
 
 
 
 function Booking() {
 
   const catrgory = useSelector((state) => state.admin.category);
-  const dispach = useDispatch()
-
-//   console.log();
-
-const [address,setAddress] = useState()
-const [name,setName] = useState()
-const [email,setEmail] = useState()
-const [phone,setPhone] = useState()
-const [city,setCity] = useState()
-const [category,setService] = useState()
-const [newPassword,setNewPassword] = useState()
-const [conPassword,setConPassword] = useState()
-const [password,setPassword] = useState();
-
-const submit = async(e)=>{
-  
+  const navigate = useNavigate();
+const initialValues = {
+  name:"",
+  email:"",
+  phone:"",
+  city:"",
+  category:"",
+  address:'',
+  newPassword:"",
+  conPassword:""
 }
 
-// console.log(value,"This is value");
-
-  const handleChange= (e)=>{
-    e.preventDefault()
-    setService(e.target.value)
+ const {values,errors,touched,handleChange,handleSubmit,handleBlur} = useFormik({
+  initialValues:initialValues,
+  validationSchema:signupSchema,
+  onSubmit:async(values,action)=>{
+    try {
+      console.log(values,"Hi poopi");
+    const res = await axios.post('/expert/signup',values)
+    console.log(res,"myre");
+    toast.success(res.data.message)
+    action.resetForm()
+    navigate('/expert/login')
+    } catch (error) {
+      console.log(error);
+      toast.error("This phone number is already exist")
+    }
   }
+})
+// console.log(errors,"This is formik"); 
+
+
+  // const handleChanges= (e)=>{
+  //   e.preventDefault()
+  //   setService(e.target.value)
+  // }
 
   return (
     <>
     <div className='contact'>
+    {/* <ExNavbar/> */}
     <Container>
       <Typography margin={'1rem'} gutterBottom variant='h4' align='center'>
         Expert Sign-up
       </Typography>
         <Card style={{maxWidth:700,margin:'0 auto',padding:'20px 5px',boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)"}} >
         <CardContent>
-          <form onSubmit={submit}>
+          <form  onSubmit={handleSubmit}>
           <Grid container spacing={3}>
           <Grid xs={6}  item>
-              <TextField type="text"   placeholder='name' variant='outlined' fullWidth required/>       
+              <TextField type="text" onChange={handleChange} onBlur={handleBlur} value={values.name} name='name' id='name'  placeholder='name' variant='outlined' fullWidth required/>
+              {<p className='form-error text-red-600'>{errors.name&&touched.name?(errors.name):null}</p>}       
             </Grid>
             <Grid xs={6}  item>
-              <TextField type="number"  placeholder='number' variant='outlined' fullWidth required/>       
+              <TextField type="number"  onChange={handleChange} onBlur={handleBlur} value={values.phone} name='phone' id='phone'  placeholder='number' variant='outlined' fullWidth required/>
+              {<p className='form-error text-red-600'>{errors.phone&&touched.phone?(errors.phone):null}</p>}              
             </Grid>
             <Grid xs={6}  item>
-              <TextField type="email"    placeholder='email' variant='outlined' fullWidth required/>       
+              <TextField type="email"  onChange={handleChange} onBlur={handleBlur} value={values.email} name='email' id='email'    placeholder='email' variant='outlined' fullWidth required/>   
+              {<p className='form-error text-red-600'>{errors.email&&touched.email?(errors.email):null}</p>}           
             </Grid>
             <Grid xs={6}  item>
-              <TextField type="text"    placeholder='Service location' variant='outlined' fullWidth required/>       
+              <TextField type="text"  onChange={handleChange} onBlur={handleBlur} value={values.city} name='city'  id='city' placeholder='Service location' variant='outlined' fullWidth required/> 
+              {<p className='form-error text-red-600'>{errors.city&&touched.city?(errors.city):null}</p>}             
             </Grid>
             <Grid xs={12}  item>
-              <TextField type='text' multiline placeholder='address'  variant='outlined' fullWidth required/>       
+              
+              <TextField type='text'  onChange={handleChange} onBlur={handleBlur} value={values.address} name='address' id='address' multiline placeholder='address'  variant='outlined' fullWidth required/>
+              {<p className='form-error text-red-600'>{errors.address&&touched.address?(errors.address):null}</p>}              
             </Grid>
             <Grid sm={12} item>
             <Typography variant='body2' gutterBottom >
+            {<p className='form-error text-red-600'>{errors.category&&touched.category?(errors.category):null}</p>}       
               Service
             </Typography>
-            <select onChange={handleChange}  className='w-full' style={{border:"solid 1px grey"}} >
+            <select  onChange={handleChange} onBlur={handleBlur} value={values.value} name='category'  className='w-full' style={{border:"solid 1px grey"}} >
               <option disabled selected>Select your option</option>
             {
               catrgory.map((ser)=>{
+                // let category = ser.category
                 return(
-                     <option value={ser.category} >{ser.category}</option>
+                     <option name='category'  value={ser.category} >{ser.category}</option>
                      )
                     })  
                   }
                   </select>
             </Grid>
             <Grid xs={6} item>
-              <TextField   placeholder='Password'   type='password'  variant='outlined' fullWidth />       
+              <TextField   placeholder='Password'  onChange={handleChange} onBlur={handleBlur} value={values.newPassword} name='newPassword' type='password'  variant='outlined' fullWidth />       
+            {<p className='form-error text-red-600'>{errors.newPasswor&&touched.newPassword?(errors.newPassword):null}</p>}       
             </Grid>
             <Grid xs={6} item>
-              <TextField  placeholder='Confirm password'   type='password'  variant='outlined' fullWidth />       
+              <TextField  placeholder='Confirm password'  onChange={handleChange} onBlur={handleBlur} value={values.conPassword} name='conPassword'   type='password'  variant='outlined' fullWidth /> 
+              {<p className='form-error text-red-600'>{errors.conPassword&&touched.conPassword?(errors.conPassword):null}</p>}             
             </Grid>
             <Grid xs={12} sm={3} item >
               <Button type='submit'  variant='contained' fullWidth color='success'>Submit</Button>       
             </Grid>
             <Grid xs={12} sm={3} item >
-            <Link  underline='hover' href="#">Login</Link>    
+            <Link  underline='hover' href="/experts/login">Login</Link>    
             </Grid>
           </Grid>
           </form>

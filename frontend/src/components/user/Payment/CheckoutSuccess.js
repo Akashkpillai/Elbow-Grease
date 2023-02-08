@@ -4,20 +4,36 @@ import { Link } from "react-router-dom";
 import axios from '../../../api/axios';
 import { useDispatch, useSelector } from 'react-redux';
 import {clearBookingDetails} from '../../Redux/adminReducer'
+import {toast} from 'react-toastify'
 
 
 
 function CheckoutSuccess() {
     
     const dispatch = useDispatch()
-    const [id,setId] = useState();
-    const bookId = useSelector((state)=>state.admin.bookingDetails._id)
+    // const [id,setId] = useState();
+    const id = useSelector((state)=>state.admin.bookingDetails._id)
+
+     async function success(){
+      try {
+        // setId(bookId)
+      const res = await axios.get(`/users/payment/${id}`)
+        // console.log(res.data.message);
+        toast.success(res.data.message)
+        setTimeout(() => {
+          dispatch(clearBookingDetails())
+      }, 10000);  
+      } catch (error) {
+        toast.error(error)
+        console.log(error);
+      }  
+      }
    
     useEffect(() => {
-        setId(bookId)
-        axios.get(`/users/payment/${id}`)
-        dispatch(clearBookingDetails())
-    }, [])
+     success()
+    },[])
+
+    
     
 
   return (

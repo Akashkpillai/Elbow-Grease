@@ -3,30 +3,30 @@
     padding: 0;
 }
 
-.user-lol{
+/* .user-lol{
     margin-left: 42px;
     font-size: 21px;
     background-color: rgb(160, 160, 211);
     cursor: pointer;
    
-}
-.firstdiv{
+} */
+.firstdivO{
     width: 100%;
     height: 19rem;
     display: flex;
     justify-content: space-between;
 }
-.welcome{
+.welcomeO{
     margin: auto;
     text-align: center;
 }
-.welcome h1{
+/* .welcomeO h1{
     font-size:3vw;
     font-weight: bold;
 }
-.welcome p{
+.welcomeO p{
     font-size:2vw;
-}
+} */
 .imagefirst{
     display: flex;
     justify-content: flex-end;
@@ -34,58 +34,44 @@
 .mus{
     font-weight: bold ;
 }
-.secdiv{
-    width: 100%;
-    height: 30rem;
-}
 
-.card{
-    display: flex;
-    flex-direction: row;
-    justify-content:center;
-}
-
-
-.carddiv{
-    display: flex;
-}
 .carddiv Button{
-   margin-left: 4rem;
+   margin-left: 6rem;
     background-color: black;
 }
 
 .card{
-    margin: auto;
+    /* margin: auto; */
 }
-.weg{
+/* .wegO{
   width: 100%;
   height: 19rem;
   background-color: white;
   display: flex;
-}
+} */
 
-.textA{
-    margin: auto;
+.textAO{
+    /* margin: auto; */
     box-sizing: border-box;
 }
 
-.textA h3{
+.textAO h3{
     font-size: 4vh;
     text-align: center;
     padding-top: 30px;
 }
 
-.textA h1{
-    font-size: 5vh;
+.textAO h1{
+    font-size: 3rem;
     font-weight: bold; 
     text-align: center;
 }
-.textA Button{
+.textAO Button{
     margin-left:6rem;
     margin-top: 1rem;
     background-color: black;
 }
-.wegimg{
+.wegimgO{
     display: flex;
     justify-content: flex-end;
 }

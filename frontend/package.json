@@ -21,6 +21,7 @@
     "antd": "^5.1.4",
     "axios": "^1.2.1",
     "bootstrap": "^5.2.3",
+    "console-browserify": "^1.2.0",
     "formik": "^2.2.9",
     "framer-motion": "^8.0.2",
     "jwt-decode": "^3.1.2",
@@ -29,7 +30,9 @@
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.0",
     "react-data-table-component": "^7.5.3",
+    "react-datetime": "^3.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.43.0",
     "react-icons": "^4.7.1",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.4.5",
@@ -38,7 +41,8 @@
     "redux": "^4.2.0",
     "redux-persist": "^6.0.0",
     "styled-components": "^5.3.6",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yup": "^0.32.11"
   },
   "scripts": {
     "start": "react-scripts start",

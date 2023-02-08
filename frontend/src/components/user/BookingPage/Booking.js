@@ -15,6 +15,7 @@ import axios from '../../../api/axios'
 import {toast} from 'react-toastify'
 
 
+
 function Booking() {
 
     const dispatch = useDispatch()
@@ -27,9 +28,23 @@ function Booking() {
 
     const [address, setAddress] = useState()
     const [pincode, setPincode] = useState()
-    const [date, setDatetime] = useState()
+    const [datestime, setDatetime] = useState()
+    const [date,setDate] = useState()
+    const [time,setTime] = useState();
     const [category, setService] = useState()
     const [discription, setAbout] = useState()
+
+    // console.log(date);
+
+    const minTime = new Date();
+    minTime.setHours(10, 0, 0, 0);
+    minTime.setDate(minTime.getDate());
+    // console.log(minTime.toJSON().slice(0, 16),"MINtIME");
+
+  const maxTime = new Date();
+  maxTime.setHours(17, 0, 0, 0);
+  maxTime.setDate(minTime.getDate() + 5);
+    // console.log(maxTime,"MaxTime");
 
     const [response, setResponse] = useState()
 
@@ -38,11 +53,12 @@ function Booking() {
         pincode,
         date,
         category,
-        discription
+        discription,
+        time
     }
     const location = useLocation()
     const bookDetails = location.state
-    console.log(bookDetails);
+    // console.log(bookDetails);
 
 
     const submit = async (e) => {
@@ -83,6 +99,15 @@ function Booking() {
         e.preventDefault()
         setService(e.target.value)
     }
+
+    const hndleDateTime = (e) =>{
+        const value = e.target.value
+        setDatetime(value)
+        setDate(value.split('T')[0])
+        setTime(value.split('T')[1]) 
+}
+// console.log(date);
+// console.log(time);
 
     return (
         <>
@@ -140,15 +165,22 @@ function Booking() {
                             <Grid xs={12}
                                 item>
                                 <TextField type='datetime-local'
-                                    value={date}
+                                    value={datestime}
                                     onChange={
-                                        (e) => {
-                                            setDatetime(e.target.value)
-                                        }
+                                       hndleDateTime
                                     }
                                     variant='outlined'
                                     fullWidth
-                                    required/>
+                                       required
+                                       InputLabelProps={{
+                                        shrink: true,
+                                      }}
+                                       inputProps={{
+                                         min: minTime.toJSON().slice(0, 16),
+                                         max: maxTime.toJSON().slice(0, 16),
+                                         
+                                      }} />
+
                             </Grid>
                         <Grid sm={12}
                             item>

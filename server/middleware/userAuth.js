@@ -13,7 +13,6 @@ const authUser = async (req, res, next) => {
             let user=await User.findOne({_id:decoded._id})
                 if(!user){
                     throw new Error("User Not Found")
-           
                 }
                 req.user = user;
                 next()

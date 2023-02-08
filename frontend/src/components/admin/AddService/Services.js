@@ -8,7 +8,7 @@ import {
     Button,
     Upload
 } from "antd";
-import axios from "axios";
+import axios from "../../../api/axios";
 
 
 
@@ -38,7 +38,7 @@ function AdminAddService() {
             },
             values
         };
-        const res = await axios.post("http://localhost:3500/admin/addService", config);
+        const res = await axios.post("/admin/addService", config);
         if (res) {
             form.resetFields();
             setsuccess(true)

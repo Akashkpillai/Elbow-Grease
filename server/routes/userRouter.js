@@ -36,5 +36,7 @@ router.get('/cancelbooking/:id',authUser,bookingService.cancelBooking);
 
 router.post('/create-checkout-session',paymentService.StripePayment);
 
+router.post('/edit-profile',authUser,services.profileEdit)
+
 
 module.exports = router

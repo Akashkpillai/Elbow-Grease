@@ -2,7 +2,7 @@ import {useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 import './Adlogin.css'
 import {showErrMsg, showSuccessMsg} from "../../util/notifications/Notification"
-import axios from 'axios'
+import axios from '../../../api/axios'
 import {useDispatch} from 'react-redux'
 import jwt from "jwt-decode"
 import {adminLoginDetails} from '../../Redux/adminReducer'
@@ -35,7 +35,7 @@ function AdminLogin() {
     const logAdmin = async e => {
         e.preventDefault()
         try {
-            const res = await axios.post('http://localhost:3500/admin/admin', {email, password})
+            const res = await axios.post('/admin/admin', {email, password})
             setAdmin({
                 ...admin,
                 err: '',
