@@ -86,7 +86,7 @@ const getBookingByCategory = async (req, res) => {
 const getAcceptedBooking = async (req, res) => {
     try{
         let expertId = req.expert._id;
-        let booking = await Booking.find({accepteBy: expertId, isAccepted: true}).populate('userId').select('-password, -__v, -createdAt, -updatedAt, -isVerified');
+        let booking = await Booking.find({accepteBy: expertId, status:'accepted'}).populate('userId').select('-password');
         if(!booking){
             return res.status(404).json({message: "No booking found"});
         }
@@ -129,6 +129,7 @@ const cancelBooking = async (req, res) => {
 }
 // accept booking by expert
 const acceptBooking = async (req, res) => {
+    // console.log("Hi there");
     try{
         let expertId = req.expert._id;
         let bookingId = req.params.id
@@ -146,6 +147,7 @@ const acceptBooking = async (req, res) => {
 
         booking.isAccepted = true;
         booking.accepteBy = expertId;
+        booking.status = "accepted"
         expert.acceptedService.push(bookingId);
         expert.pendingService.push(bookingId);
         await expert.save();
@@ -160,12 +162,26 @@ const acceptBooking = async (req, res) => {
     }
 }
 
+const getCompleteBooking = async (req, res) => {
+    try{
+        let expertId = req.expert._id;
+        let booking = await Booking.find({accepteBy: expertId, status:'Completed'}).populate('userId').select('-password');
+        if(!booking){
+            return res.status(404).json({message: "No booking found"});
+        }
+        res.json(booking);
+    }catch(err){
+        console.log(err);
+        res.status(500).json({message: "Server Error"});
+    }
+}
+
 // complete booking by expert
 const completeBooking = async (req, res) => {
     try{
         let expertId = req.expert._id;
         let bookingId = req.params.id || req.body.id;
-        let booking = await Booking.find({_id: bookingId, accepteBy: expertId});
+        let booking = await Booking.findOne({_id: bookingId, accepteBy: expertId});
         if(!booking){
             return res.status(404).json({message: "Booking not found"});
         }
@@ -175,14 +191,18 @@ const completeBooking = async (req, res) => {
         }
         // remove booking from pending service
         let index = expert.pendingService.indexOf(bookingId);
-        expert.pendingService.splice(index, 1);
+        console.log(index,"this is index");
+        if(index !== -1){
+            expert.pendingService.splice(index, 1);
+        }
         // add booking to completed service
         expert.completedService.push(bookingId);
         await expert.save();
-        booking.status = "Completed";
 
-        await booking.save();
-        res.json({message: "Booking completed"});
+        booking.status = "Completed";
+        await booking.save(function(){});
+
+        res.json({message: "Deal completed"});
 
     }catch(err){
         console.log(err);
@@ -218,5 +238,6 @@ module.exports = {
     cancelBooking,
     acceptBooking,
     completeBooking,
-    getBookingByUser
+    getBookingByUser,
+    getCompleteBooking
 }

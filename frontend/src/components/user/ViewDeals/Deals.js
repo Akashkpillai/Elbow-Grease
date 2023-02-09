@@ -33,7 +33,7 @@ function Deals() {
 
   return (
       <div className='container  deal-main'>
-      {details?.map((booking)=>{
+        {details?.length != 0 ?  details?.map((booking)=>{
         return(
             
         <Card className='md:w-8/12 w-12/12'
@@ -45,7 +45,7 @@ function Deals() {
   <div  className='cardDeal'>
   <div className='Dealtext'>
     <h1 className='font-bold'>{booking.category}</h1>
-    <h4>{`Payment : ${booking.status}`}</h4>
+    <h4>{`Status : ${booking.status}`}</h4>
     <p>{`Date : ${booking.date}`}</p>
     <p>{`Time : ${booking.time}`}</p>
   </div>
@@ -55,9 +55,12 @@ function Deals() {
     </div>
   </Card>
  
-      )})
-}
-
+      )}):<div className='flex h-48  justify-center items-end text-center'>
+      <h3 className='text-4xl font-bold'>
+          No booking found
+      </h3>
+  </div>
+        }
   </div>
   )
 }

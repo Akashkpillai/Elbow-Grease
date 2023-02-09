@@ -66,7 +66,7 @@ const expertSignup =(req, res) => {
 const expertDetails = async(req,res) =>{
   try {
      const expert =  req.expert._id
-     const result = await Expert.findOne({id:expert}).select('-password')
+     const result = await Expert.findOne({_id:expert}).select('-password')
     //  console.log(result);
     return res.json({data: result});
   } catch (error) {

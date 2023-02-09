@@ -37,12 +37,12 @@ function Booking() {
     // console.log(date);
 
     const minTime = new Date();
-    minTime.setHours(10, 0, 0, 0);
+    minTime.setHours(9, 0, 0, 0);
     minTime.setDate(minTime.getDate());
     // console.log(minTime.toJSON().slice(0, 16),"MINtIME");
 
   const maxTime = new Date();
-  maxTime.setHours(17, 0, 0, 0);
+  maxTime.setHours(24, 0, 0, 0);
   maxTime.setDate(minTime.getDate() + 5);
     // console.log(maxTime,"MaxTime");
 

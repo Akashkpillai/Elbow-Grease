@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -24,6 +25,8 @@ import Category from '@mui/icons-material/Category';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import {clearExpertLoginDetails} from '../../Redux/adminReducer'
+import { Modal } from 'antd';
+
 
 
 const drawerWidth = 240;
@@ -78,6 +81,16 @@ export default function PersistentDrawerLeft() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [open, setOpen] = React.useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -99,12 +112,12 @@ export default function PersistentDrawerLeft() {
 
   },
   {
-    path : '/admin/productManagement',
+    path : '/experts/accepted-deal',
     title : 'Todo',
     img : <Category />
   },
   {
-    path : '/admin/orderManagement',
+    path : '/experts/completed-deal',
     title : 'Completed',
     img : <InboxIcon />
 
@@ -117,6 +130,11 @@ export default function PersistentDrawerLeft() {
     }
 
   return (
+    <>
+     <Modal  title="Logout!"  open={isModalOpen} okText="YES" className='text-red-600' onOk={logOutbtn} onCancel={handleCancel}>
+        <h1>Are you want to logout?</h1>
+        {/* <button onClick={logout}>Yes</button> */}
+      </Modal>
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar position="fixed" color='secondary' open={open}>
@@ -177,7 +195,7 @@ export default function PersistentDrawerLeft() {
               </ListItemButton>
             </ListItem>
           ))}
-          <ListItemButton onClick={logOutbtn}
+          <ListItemButton onClick={showModal}
             sx={{
               minHeight: 48,
               justifyContent: open ? 'initial' : 'center',
@@ -215,5 +233,6 @@ export default function PersistentDrawerLeft() {
         <DrawerHeader />
       </Main>
     </Box>
+    </>
   );
 }

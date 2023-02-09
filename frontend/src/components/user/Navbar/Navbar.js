@@ -8,10 +8,21 @@ import {useSelector,useDispatch} from 'react-redux'
 import jwt from "jwt-decode"
 import {useNavigate} from 'react-router-dom'
 import { clearUserLoginDetails,clearUserToken, clearUserAllDetails } from '../../Redux/adminReducer';
+import { Modal } from 'antd';
 
 
 
 const Navbar = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
   const dispatch = useDispatch();
   const navigate =useNavigate()
   const details = localStorage.getItem('userInfo')
@@ -26,6 +37,10 @@ const Navbar = () => {
   const [Mobile, setMobile] = useState(false)
   return (
     <>
+    <Modal  title="Logout!"  open={isModalOpen} okText="YES" className='text-red-600' onOk={logout} onCancel={handleCancel}>
+        <h1>Are you want to logout?</h1>
+        {/* <button onClick={logout}>Yes</button> */}
+      </Modal>
       <nav className='navbar'>
         <Link to="/">
           <img className="logo" style={{width:"30vh"}} src={LOGO} alt="img" />
@@ -52,8 +67,8 @@ const Navbar = () => {
           </Link>
           {
             details?
-            <Link to='/login'>
-            <li onClick={logout}>Logout</li>
+            <Link >
+            <li onClick={showModal}>Logout</li>
             </Link>:
             <Link to='/login' className='profile'>
             <li >Login</li>

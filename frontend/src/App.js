@@ -33,7 +33,10 @@ import ExDash from './pages/Experts/ExDash';
 import ExEditprofile from './pages/Experts/ExEditprofile';
 import ShowDeals from './components/Expert/showDeals/ShowDeals'
 import GetDealDetailsbyExpert from './components/Expert/showDeals/DealAllDetails'
-
+import ExAcceptedDeal from './pages/Experts/ExAcceptedDeal';
+import ViewAccepted from './components/Expert/CompletedDeals/ViewAccepted'
+import CompleteByex from './components/Expert/CompletedByEx/CompletedByex'
+import ViewCompletedDetails from './components/Expert/CompletedByEx/ViewComDetails'
 export default function App() {
 
 
@@ -87,6 +90,14 @@ export default function App() {
      <Route path="/experts/edit-profile" element={<ExEditprofile />} />
      <Route path="/expert/view-Deals" element={<ShowDeals />} />
      <Route path="/experts/deal-deatails" element={<GetDealDetailsbyExpert />} />
+     <Route path="/experts/accepted-deal" element={<ExAcceptedDeal />} />
+     <Route path="/experts/accepted-deal-details" element={<ViewAccepted />} />
+     <Route path="/experts/completed-deal" element={<CompleteByex />} />
+     <Route path="/experts/completed-deal-details" element={<ViewCompletedDetails />} />
+
+
+
+
 
 
 

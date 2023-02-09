@@ -68,11 +68,12 @@ const [isModalOpen, setIsModalOpen] = useState(false);
                                         <Link to='/admin/user'>
                                             <button className="text-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Users</button>
                                         </Link>
-                                        <Link to='/admin/service'>
+                                     <Link to='/admin/service'>
                                         <button className="text-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">services</button>
-                                        </Link>
-
-                                        <button className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Payments</button>
+                                     </Link>
+                                     <Link to='/admin/booking'>
+                                        <button className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Booking</button>
+                                     </Link>
 
                                         <Link to='/admin/category'>
                                             <button className="text-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Category</button>

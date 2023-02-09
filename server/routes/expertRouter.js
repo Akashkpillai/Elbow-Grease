@@ -14,8 +14,12 @@ router.get('/bookingDetails/:id',authExpert,bookingService.getBookingById)
 
 
 router.get('/booking',authExpert,bookingService.getBookingByCategory)
+router.get('/accepted-booking',authExpert,bookingService.getAcceptedBooking)
+router.get('/completed-booking',authExpert,bookingService.getCompleteBooking)
 router.get('/bookingDetails/:id',authExpert,bookingService.getBookingById)
-router.get('/acceptbooking/:id',authExpert,bookingService.acceptBooking)   
+router.post('/acceptbooking/:id',authExpert,bookingService.acceptBooking)   
+router.get('/completebooking/:id',authExpert,bookingService.completeBooking)
+router.post('/rejectbooking/:id',authExpert,bookingService.rejectBooking)    
 router.get('/rejectbooking/:id',authExpert,bookingService.rejectBooking)
 
 

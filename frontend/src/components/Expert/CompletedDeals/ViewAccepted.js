@@ -4,7 +4,7 @@ import {MDBCarousel, MDBCarouselItem} from "mdb-react-ui-kit";
 import {useLocation} from 'react-router-dom';
 import axios from '../../../api/axios';
 import {useSelector} from "react-redux";
-import ExNavbar from '../../../components/Expert/Navbar/Navbar'
+import ExNavbar from '../Navbar/Navbar'
 import {toast} from 'react-toastify'
 import { useNavigate } from 'react-router-dom';
 
@@ -28,7 +28,7 @@ function DealDetails() {
                     'Content-Type': 'application/json'
                 }
             };
-            const res = await axios.get(`/expert/bookingDetails/${id}`,config)
+            const res = await axios.get(`/expert/bookingDetails/${id}`, config)
             setDetails(res.data)
             setUsers(res.data.userId)
         } catch (error) {
@@ -38,14 +38,30 @@ function DealDetails() {
     const bookId = details._id
     console.log(bookId, "poo")
 
-    const accepteBooking = async () => {
+    const completedBooking = async () => {
         try {
             const headers = {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
                 Authorization: user
             }
-            const res = await axios.post(`/expert/acceptbooking/${id}`,{data:''},{headers: headers})
+            const res = await axios.get(`/expert/completebooking/${id}`,{headers: headers})
+            navigate('/experts/dashboard')
+            toast.success(res.data.message)
+            console.log(res);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const rejectBooking = async () => {
+        try {
+            const headers = {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: user
+            }
+            const res = await axios.post(`/expert/rejectbooking/${id}`,{data:''},{headers: headers})
             navigate('/experts/dashboard')
             toast.success(res.data.message)
             console.log(res);
@@ -126,10 +142,13 @@ function DealDetails() {
                             </tr>
 
                             <div className='exbuttonDeal'>
-                                {}
-                                <button onClick={accepteBooking}
+                               
+                                <button onClick={completedBooking}
                                     type='submit'
-                                    className='bg-black text-white hover:bg-violet-600 mr-3'>Accept</button>
+                                    className='bg-black text-white hover:bg-violet-600 mr-3'>Completed</button>
+                                     <button onClick={rejectBooking}
+                                    type='submit'
+                                    className='bg-black text-white hover:bg-violet-600 mr-3'>Reject</button>
                             </div>
 
                         </MDBTableBody>

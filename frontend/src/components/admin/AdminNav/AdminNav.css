@@ -16,3 +16,7 @@
     font-size: 40px;
     line-height: 20px;
 }
+
+.ant-btn-primary {
+    background-color: red !important;
+}

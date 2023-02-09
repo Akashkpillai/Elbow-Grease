@@ -4,7 +4,7 @@ import {MDBCarousel, MDBCarouselItem} from "mdb-react-ui-kit";
 import {useLocation} from 'react-router-dom';
 import axios from '../../../api/axios';
 import {useSelector} from "react-redux";
-import ExNavbar from '../../../components/Expert/Navbar/Navbar'
+import ExNavbar from '../Navbar/Navbar'
 import {toast} from 'react-toastify'
 import { useNavigate } from 'react-router-dom';
 
@@ -28,7 +28,7 @@ function DealDetails() {
                     'Content-Type': 'application/json'
                 }
             };
-            const res = await axios.get(`/expert/bookingDetails/${id}`,config)
+            const res = await axios.get(`/expert/bookingDetails/${id}`, config)
             setDetails(res.data)
             setUsers(res.data.userId)
         } catch (error) {
@@ -37,22 +37,6 @@ function DealDetails() {
     }
     const bookId = details._id
     console.log(bookId, "poo")
-
-    const accepteBooking = async () => {
-        try {
-            const headers = {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-                Authorization: user
-            }
-            const res = await axios.post(`/expert/acceptbooking/${id}`,{data:''},{headers: headers})
-            navigate('/experts/dashboard')
-            toast.success(res.data.message)
-            console.log(res);
-        } catch (error) {
-            console.log(error);
-        }
-    }
 
     useEffect(() => {
         getDealDetails()
@@ -124,13 +108,6 @@ function DealDetails() {
                                     users.phone
                                 }</td>
                             </tr>
-
-                            <div className='exbuttonDeal'>
-                                {}
-                                <button onClick={accepteBooking}
-                                    type='submit'
-                                    className='bg-black text-white hover:bg-violet-600 mr-3'>Accept</button>
-                            </div>
 
                         </MDBTableBody>
                     </MDBTable>
