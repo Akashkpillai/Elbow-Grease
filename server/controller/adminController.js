@@ -7,6 +7,8 @@ const jwt = require('jsonwebtoken')
 const Category = require('../model/CategoryModel')
 const {uploadToCloudinary} = require('../config/ColudUpload')
 const Service = require('../model/ServiceModel')
+const User = require('../model/userModel')
+const Booking = require('../model/BookingModel')
 
 
 const adminLogin = async (req, res) => {
@@ -20,7 +22,6 @@ const adminLogin = async (req, res) => {
         if (admin.password == password) {
             const token = jwt.sign({
                 _id: admin._id,
-                email: admin.email
             }, process.env.JWT_SECRET_KEY)
             return res.json({msg: "Login Successful", token: token});
         } else {
@@ -265,7 +266,7 @@ const unblockExpert = async(req,res) =>{
 
 const deleteServices = async (req, res) => {
     id = req.params.id
-    console.log(id);
+    // console.log(id);
     try {
         if (id) {
             const service = await Service.findByIdAndDelete({_id:id})
@@ -274,6 +275,42 @@ const deleteServices = async (req, res) => {
         } else {
             return res.status(400).json({msg: "No data deleted"});
         }
+    } catch (error) {
+        return res.status(500).json({msg: error.message})
+    }
+}
+
+const getUserCount = async (req,res) => {
+    try {
+        const user = await User.find({blockStatus:false}).count()
+        if(!user){
+            return res.status(400).json({msg: "No user data"});
+        }
+        return res.json({msg: "Deleted successfuly!",count:user});
+    } catch (error) {
+        return res.status(500).json({msg: error.message})
+    }
+}
+
+const getExpertCount = async (req,res) => {
+    try {
+        const user = await Expert.find({status:"accepted"}).count()
+        if(!user){
+            return res.status(400).json({msg: "No user data"});
+        }
+        return res.json({msg: "Deleted successfuly!",count:user});
+    } catch (error) {
+        return res.status(500).json({msg: error.message})
+    }
+}
+
+const getDealCount = async (req,res) => {
+    try {
+        const user = await Booking.find().count()
+        if(!user){
+            return res.status(400).json({msg: "No booking data"});
+        }
+        return res.json({msg: "Deleted successfuly!",count:user});
     } catch (error) {
         return res.status(500).json({msg: error.message})
     }
@@ -299,4 +336,7 @@ module.exports = {
     acceptedExperts,
     deleteServices,
     unblockExpert,
+    getUserCount,
+    getDealCount,
+    getExpertCount
 }

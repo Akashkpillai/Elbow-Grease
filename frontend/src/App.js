@@ -37,6 +37,8 @@ import ExAcceptedDeal from './pages/Experts/ExAcceptedDeal';
 import ViewAccepted from './components/Expert/CompletedDeals/ViewAccepted'
 import CompleteByex from './components/Expert/CompletedByEx/CompletedByex'
 import ViewCompletedDetails from './components/Expert/CompletedByEx/ViewComDetails'
+import ViewAllBooking from './components/admin/Booking/ViewAllBooking'
+import ViewDealDetails from './pages/admin/ViewDealDetails';
 export default function App() {
 
 
@@ -80,6 +82,10 @@ export default function App() {
      <Route path="/admin/addService" element={<AddServices />} />
      <Route path="/admin/expert" element={<ExpertInfo />} />
      <Route path="/admin/expertPending" element={<ExpertPendingInfo />} />
+     <Route path="/admin/booking" element={<ViewAllBooking />} />
+     <Route path="/admin/deal-alldetails" element={<ViewDealDetails />} />
+
+
 
 
 

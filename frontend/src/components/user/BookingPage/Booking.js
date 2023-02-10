@@ -178,7 +178,6 @@ function Booking() {
                                        inputProps={{
                                          min: minTime.toJSON().slice(0, 16),
                                          max: maxTime.toJSON().slice(0, 16),
-                                         
                                       }} />
 
                             </Grid>

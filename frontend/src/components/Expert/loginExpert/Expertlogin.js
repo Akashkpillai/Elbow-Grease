@@ -81,7 +81,6 @@ function ExpertLogin() {
                             <div className="message">
                             <div className="signup items-center justify-center w-full">
                             <a href="/experts/signup" className="sign hover:bg-violet-600 mb-4 mr-3" style={{color: "black"}}>Signup</a>
-                            <a href="/forgot_password" className="sign hover:bg-violet-600 mb-4" style={{color: "black"}} >forgot password?</a>
                             </div>
                             </div>
                         </form>

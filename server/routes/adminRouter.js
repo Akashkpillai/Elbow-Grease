@@ -27,5 +27,10 @@ router.put('/expertEblock/:id',services.blockExpert)
 router.get('/booking-page',booking.getAllBooking)
 router.get('/booking-details/:id',booking.getBookingById)
 
+router.get('/getUserCount',adminauth.authAdmin,services.getUserCount)
+router.get('/getExpertCount',adminauth.authAdmin,services.getExpertCount)
+router.get('/getDealCount',adminauth.authAdmin,services.getDealCount)
+
+
 
 module.exports = router

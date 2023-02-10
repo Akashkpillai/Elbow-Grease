@@ -132,9 +132,6 @@ function AdminServices() {
                                                 }/>
                                         </TableCell>
                                         <TableCell>
-                                            <button>
-                                            < EditIcon/>
-                                            </button>
                                             <button  onClick={()=>deleteSer(car._id)}>
                                             <DeleteIcon/>
                                             </button >

@@ -41,7 +41,7 @@ const userCtrl = {
             const url = `${CLIENT_URL}/user/activate/${activation_token}`
             try {
                 sendMail(email, url, "Verfiy your email address to start")
-                res.json({msg: "Register sucssue please activate your email to start"})
+                res.json({msg: "Register success please activate your email to start"})
             } catch (error) {
                 console.log(error)
             }

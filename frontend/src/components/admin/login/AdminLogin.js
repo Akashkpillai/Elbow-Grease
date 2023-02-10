@@ -43,7 +43,7 @@ function AdminLogin() {
             });
            if(res.data.token){
             localStorage.setItem('adminToken',res.data.token)
-            const admin = jwt(res.data.token);
+            const admin = res.data.token;
             dispatch(adminLoginDetails(admin))
             localStorage.setItem('adminDetails',admin.email)
              navigate('/admin/home')
