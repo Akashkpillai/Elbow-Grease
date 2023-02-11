@@ -25,6 +25,7 @@ import ExpertPendingInfo from './pages/admin/PendingExperts';
 import CheckoutSuccess from './components/user/Payment/CheckoutSuccess';
 import CheckoutFailure from './components/user/Payment/CheckoutFailure';
 import ProtectRoute from './components/ProtectedRoute/userProtected';
+import AdminRoute from './components/ProtectedRoute/AdminProtected'
 import ExpertLogin from './components/Expert/loginExpert/Expertlogin';
 import ProEdit from './pages/user/ProEdit';
 import ViewDeals from './pages/user/ViewDeals';
@@ -39,15 +40,24 @@ import CompleteByex from './components/Expert/CompletedByEx/CompletedByex'
 import ViewCompletedDetails from './components/Expert/CompletedByEx/ViewComDetails'
 import ViewAllBooking from './components/admin/Booking/ViewAllBooking'
 import ViewDealDetails from './pages/admin/ViewDealDetails';
+import NoPage from './components/NotFound/notfound';
 export default function App() {
 
 
+  // useEffect(() => {
+  //   const storedValue = localStorage.getItem('isLoggedIn');
+  //   if (storedValue === 'true') {
+  //     setIsLoggedIn(true);
+  //   }
+  // }, []);
 
   
   return (
     <div className='app bg-white'>
  <BrowserRouter>
  <Routes> 
+ <Route path='*' element={<NoPage/>} />
+ 
       {/* user */}
      
      <Route path="/login"  element={<LoginUser />} />

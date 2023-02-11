@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useState,useEffect} from "react";
 import {useNavigate} from 'react-router-dom'
 import axios from "../../../api/axios";
 import './login.css'
@@ -37,12 +37,26 @@ function Login() {
         localStorage.setItem('userInfo',res.data.data)
         const token = res.data.data
         dispatch(userToken(token))
+        localStorage.setItem('userLogin',"true")
         navigate('/userHome')
     } catch (err) {
        err.response.data.msg && setUser({...user,err:err.response.data.msg,success:''})
     }
    }
+    
+   const session = () => {
+    const storedValue = localStorage.getItem('userLogin')
+    // console.log(storedValue);
+    if (storedValue == 'true') {
+        navigate('/userHome')
+    } else {
+        navigate('/login')
+    }
+}
 
+useEffect(() => {
+    session()
+}, [])
 
   return (
     <div>

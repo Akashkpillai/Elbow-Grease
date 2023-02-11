@@ -127,6 +127,7 @@ export default function PersistentDrawerLeft() {
     const logOutbtn = () =>{
         navigate('/experts/login')
         dispatch(clearExpertLoginDetails())
+        localStorage.removeItem('experLogin')
     }
 
   return (

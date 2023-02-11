@@ -20,7 +20,7 @@ function AdminNav() {
     const logout = () => {
       dispatch(clearAdminLoginDetails())
         localStorage.removeItem('adminToken')
-        localStorage.removeItem('adminDetails')
+        localStorage.removeItem('adminLogin')
         navigate('/admin')
     }
 const [isModalOpen, setIsModalOpen] = useState(false);

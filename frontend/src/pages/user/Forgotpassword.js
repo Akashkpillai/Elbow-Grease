@@ -8,7 +8,7 @@ function Forgotpassword() {
     <div>
       <UserNavbar/>
         <Forgotpass/>
-        <Footer/>
+        {/* <Footer/> */}
     </div>
   )
 }

@@ -31,6 +31,7 @@ const Navbar = () => {
     dispatch(clearUserToken());
     dispatch(clearUserLoginDetails());
     dispatch( clearUserAllDetails())
+    localStorage.removeItem('userLogin')
     navigate('/login')
 }
 

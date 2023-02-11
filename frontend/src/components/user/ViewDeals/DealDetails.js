@@ -71,10 +71,10 @@ function DealDetails() {
                 <td>About</td>
                 <td>{details.discription}</td>
               </tr>
-              <tr>
+              {/* <tr>
                 <td>Accepted</td>
                 <td>{details.isAccepted?"The expert is on the way":"Looking for expert"}</td>
-              </tr>
+              </tr> */}
             </MDBTableBody>
           </MDBTable>
           <div className='mt-4'>

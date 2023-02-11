@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useState,useEffect} from 'react'
 import {useNavigate} from 'react-router-dom'
 import './expert.css'
 import {showErrMsg, showSuccessMsg} from "../../util/notifications/Notification"
@@ -31,6 +31,7 @@ function ExpertLogin() {
                dispatch(expertLoginDetails(expert))
                toast.success(res.data.msg)
                action.resetForm()
+               localStorage.setItem('experLogin',"true")
                navigate('/experts/dashboard')
             } catch (error) {
                 setErr(error.response.data.msg)
@@ -38,6 +39,22 @@ function ExpertLogin() {
             }
         }
     })
+
+    const session = () => {
+        const storedValue = localStorage.getItem('experLogin')
+        // console.log(storedValue);
+        if (storedValue == 'true') {
+            navigate('/experts/dashboard')
+        } else {
+            navigate('/experts/login')
+        }
+    }
+
+    useEffect(() => {
+        session()
+    }, [])
+    
+
 
 
 
