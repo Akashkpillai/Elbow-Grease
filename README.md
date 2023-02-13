@@ -43,7 +43,6 @@ The application is built with:
 - SignUp, and log in With the JWT token, email verification
 - Admin Page, Block User
 - Create, Edit, Delete Services
-- Live Chat, Integrated with Socket I/O
 - Book for an expert
 - Payment using stripe 
 
@@ -60,7 +59,7 @@ To run this application, you have to set your own environmental variables. For s
 
 - PORT: Specify the port Number
 
-- Also you need to insert admin username and password in database eg:{username:"admin",password:"12345"}
+- Also you need to insert admin username and password in database eg:{username:"admin",password:"12345678"}
 
 After you've set these environmental variables in the .env file at the root of the project, and intsall node modules using npm install
 
