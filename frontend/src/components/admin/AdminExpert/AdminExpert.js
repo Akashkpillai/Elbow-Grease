@@ -29,22 +29,23 @@ function AdminExpertInfoPage() {
             minWidth: 650
         }
     });
+    
+    const token = localStorage.getItem('adminToken');
+    async function getAllUsers() {
+        const config = {
+            headers: {
+                Accept: 'application/json',
+                Authorization: token,
+                'Content-Type': 'application/json'
+            }
+        };
+        const response = await axiox.get('/admin/acceptedExperts', config);
+        setExpertDetails(response.data.details);
+    }
 
-    useEffect(() => {
-        const token = localStorage.getItem('adminToken');
+    useEffect(() => { 
         getAllUsers();
-        async function getAllUsers() {
-            const config = {
-                headers: {
-                    Accept: 'application/json',
-                    Authorization: token,
-                    'Content-Type': 'application/json'
-                }
-            };
-            const response = await axiox.get('/admin/acceptedExperts', config);
-            setExpertDetails(response.data.details);
-        }
-    }, [expertDetails]);
+    }, []);
 
     const classes = useStyles();
 
@@ -65,6 +66,7 @@ function AdminExpertInfoPage() {
       };
       const data = await axiox.put(`/admin/expertEblock/${id}`,config);
       toast.success(`${data.data.details.name} is blocked!`)
+      getAllUsers()
       if (data.blocked) {
         setExpertDetails(data.expertDetails);
       }
@@ -82,6 +84,7 @@ function AdminExpertInfoPage() {
       const data = await axiox.put(`/admin/accept/${id}`, config);
       console.log(data);
       toast.success(`${data.data.details.name} is Unblocked!`)
+      getAllUsers()
       if (data.blocked) {
           setExpertDetails(data.details);
       }

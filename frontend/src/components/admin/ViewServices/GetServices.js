@@ -54,7 +54,7 @@ function AdminServices() {
             }
         }
         getServices();
-    },[cars]);
+    },[]);
 
     async function deleteSer(id){
         console.log(id);

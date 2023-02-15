@@ -50,7 +50,7 @@ function Login() {
     if (storedValue == 'true') {
         navigate('/userHome')
     } else {
-        navigate('/login')
+        navigate('/login',{replace:true})
     }
 }
 

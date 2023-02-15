@@ -17,7 +17,15 @@ function Deals() {
 
     async function getDetails() {
         try {
-            const res = await axios.get("/admin/booking-page")
+            const token = localStorage.getItem('adminToken');
+            const config = {
+                headers: {
+                  Accept: 'application/json',
+                  Authorization:token,
+                  'Content-Type': 'application/json',
+                },
+              };
+            const res = await axios.get("/admin/booking-page",config)
             setDetails(res.data);
         } catch (error) {
             console.log(error);

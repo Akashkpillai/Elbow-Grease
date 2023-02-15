@@ -54,6 +54,12 @@ const expertSignup =(req, res) => {
         if (! isMatch) {
             return res.status(400).json({msg: "Invalide Password"});
         }
+        if(user.status === "pending"){
+          return res.status(400).json({msg: "Please wait until approved"});
+        }
+        if(user.status === "blocked"){
+          return res.status(400).json({msg: "You are banned by admin"});
+        }
         const token = jwt.sign({
             _id: user._id
         }, process.env.JWT_SECRET_KEY)
@@ -66,8 +72,7 @@ const expertSignup =(req, res) => {
 const expertDetails = async(req,res) =>{
   try {
      const expert =  req.expert._id
-     const result = await Expert.findOne({_id:expert}).select('-password')
-    //  console.log(result);
+     const result = await Expert.findOne({_id:expert}).select('-password');
     return res.json({data: result});
   } catch (error) {
     return res.status(500).json({msg: error.message});

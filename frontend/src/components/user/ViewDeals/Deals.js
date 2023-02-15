@@ -4,11 +4,14 @@ import {useNavigate} from 'react-router-dom'
 import { Card, Grid } from 'antd';
 import axios from '../../../api/axios';
 import './deals.css'
+import {useDispatch} from 'react-redux';
+import {userBookingDetails} from '../../Redux/adminReducer'
 
 function Deals() {
 
     const token = useSelector((state) => state.admin.userToken)
     const navigate = useNavigate()
+    const dispatch = useDispatch()
     const [details,setDetails] = useState()
 
 
@@ -50,7 +53,21 @@ function Deals() {
     <p>{`Time : ${booking.time}`}</p>
   </div>
     <div className='buttonDeal'>
+      {booking.fixedChargeStatus === "pending"?
+        <button onClick={()=>{
+          dispatch(userBookingDetails(booking))
+          axios.post('/users/create-checkout-session').then((res) => {
+            console.log(res);
+            if (res.data.url) {
+                window.location.href = res.data.url
+            }
+        }).catch((err) => {
+            console.log(err);
+        })
+        }} type='submit' className='bg-green-500 text-white hover:bg-violet-600'>Proceed Payment</button>:
         <button onClick={()=>{navigate('/deal-deatails',{state:booking._id})}} type='submit' className='bg-black text-white hover:bg-violet-600'>View</button>
+      }
+        
     </div>
     </div>
   </Card>

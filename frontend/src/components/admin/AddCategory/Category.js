@@ -11,7 +11,7 @@ import {
     Typography
 } from '@mui/material'
 import {useDispatch} from 'react-redux'
-
+import './category.css'
 import {categoryDetails} from '../../Redux/adminReducer'
 
 
@@ -93,11 +93,10 @@ function Category() {
         },
     ];
     return (
-        <div>
-            <Card style={
+        <div className='categoryMain'>
+            <Card className='md:m-auto mt-3' style={
                 {
                     maxWidth: 550,
-                    margin: '1rem 0rem 0rem 20rem',
                     padding: '20px 5px',
                     boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)"
                 }

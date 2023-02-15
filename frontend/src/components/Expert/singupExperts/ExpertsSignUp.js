@@ -35,20 +35,14 @@ const initialValues = {
     console.log(res,"myre");
     toast.success(res.data.message)
     action.resetForm()
-    navigate('/expert/login')
+    navigate('/experts/login')
     } catch (error) {
       console.log(error);
       toast.error("This phone number is already exist")
     }
   }
 })
-// console.log(errors,"This is formik"); 
 
-
-  // const handleChanges= (e)=>{
-  //   e.preventDefault()
-  //   setService(e.target.value)
-  // }
 
   return (
     <>
@@ -92,7 +86,6 @@ const initialValues = {
               <option disabled selected>Select your option</option>
             {
               catrgory.map((ser)=>{
-                // let category = ser.category
                 return(
                      <option name='category'  value={ser.category} >{ser.category}</option>
                      )

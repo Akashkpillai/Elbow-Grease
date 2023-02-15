@@ -17,7 +17,6 @@ function DealDetails() {
     const user = useSelector((state) => state.admin.expertDetails)
     const [details, setDetails] = useState('');
     const [users, setUsers] = useState('')
-    console.log(user, "this is user");
     console.log(id, "THis is id")
     async function getDealDetails() {
         try {
@@ -35,9 +34,6 @@ function DealDetails() {
             console.log(error);
         }
     }
-    const bookId = details._id
-    console.log(bookId, "poo")
-
     const accepteBooking = async () => {
         try {
             const headers = {
@@ -45,12 +41,13 @@ function DealDetails() {
                 'Content-Type': 'application/json',
                 Authorization: user
             }
-            const res = await axios.post(`/expert/acceptbooking/${id}`,{data:''},{headers: headers})
+            const res = await axios.post(`/expert/acceptbooking/${id}`,{data:null},{headers: headers})
             navigate('/experts/dashboard')
             toast.success(res.data.message)
             console.log(res);
         } catch (error) {
             console.log(error);
+            toast.error(error.response.data.message)
         }
     }
 

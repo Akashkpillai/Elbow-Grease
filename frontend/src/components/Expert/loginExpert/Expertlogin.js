@@ -46,7 +46,7 @@ function ExpertLogin() {
         if (storedValue == 'true') {
             navigate('/experts/dashboard')
         } else {
-            navigate('/experts/login')
+            navigate('/experts/login',{replace:true})
         }
     }
 

@@ -65,7 +65,7 @@ function AdminLogin() {
         const storedValue = localStorage.getItem('adminLogin')
         // console.log(storedValue);
         if (storedValue == 'true') {
-            navigate('/admin/home')
+            navigate('/admin/home',{replace:true})
         } else {
             navigate('/admin')
         }

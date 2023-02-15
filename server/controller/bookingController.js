@@ -40,7 +40,7 @@ const paymentCompleted = async (req, res) => {
 // @access  Public
 const getAllBooking = async (req, res) => {
     try{
-        let booking = await Booking.find();
+        let booking = await Booking.find().sort({date:'desc',time:"desc"});
         res.json(booking);
     }catch(err){
         console.log(err);
@@ -70,7 +70,7 @@ const getBookingByCategory = async (req, res) => {
         try{
             let category = req.expert.serviceType;
             // show only not accepted booking for expert with category
-            const booking = await Booking.find({category, isAccepted: false });
+            const booking = await Booking.find({category, isAccepted: false}).sort({date:"asc"});
             if(!booking){
                 return res.status(400).json({message: "No New booking found for this category"});
             }
@@ -80,13 +80,12 @@ const getBookingByCategory = async (req, res) => {
             console.log(err);
             res.status(500).json({message: "Server Error"});
         }
-
     }
     // get accepted booking by  expert
 const getAcceptedBooking = async (req, res) => {
     try{
         let expertId = req.expert._id;
-        let booking = await Booking.find({accepteBy: expertId, status:'accepted'}).populate('userId').select('-password');
+        let booking = await Booking.find({accepteBy: expertId ,status:"accepted"}).populate('userId').select('-password');
         if(!booking){
             return res.status(404).json({message: "No booking found"});
         }
@@ -107,6 +106,7 @@ try{
     }
     booking.isAccepted = false;
     booking.accepteBy = null;
+    booking.status = "Payment completed"
     await booking.save();
     res.json({message: "Booking rejected"});
 
@@ -129,14 +129,14 @@ const cancelBooking = async (req, res) => {
 }
 // accept booking by expert
 const acceptBooking = async (req, res) => {
-    // console.log("Hi there");
     try{
         let expertId = req.expert._id;
         let bookingId = req.params.id
         
         // check if booking is already accepted by other expert
 
-        let booking =await Booking.findOne({ isAccepted: false});
+        let booking =await Booking.findOne({_id:bookingId,isAccepted: false });
+
         if(!booking){
             return res.status(400).json({message: "Booking already accepted by other expert"});
         }
@@ -145,11 +145,20 @@ const acceptBooking = async (req, res) => {
             return res.status(404).json({message: "Expert not found"});
         }
 
+        // Check if expert has already accepted a booking on the same date
+        const existingBookingOnSameDate = await Booking.findOne({
+            accepteBy: expertId,
+            date: booking.date,
+            status:"accepted"
+        });
+        if (existingBookingOnSameDate) {
+            return res.status(400).json({message: "Already accepted a booking on the same date."});
+        }
+       
         booking.isAccepted = true;
         booking.accepteBy = expertId;
         booking.status = "accepted"
         expert.acceptedService.push(bookingId);
-        expert.pendingService.push(bookingId);
         await expert.save();
         await booking.save();
         
@@ -167,7 +176,7 @@ const getCompleteBooking = async (req, res) => {
         let expertId = req.expert._id;
         let booking = await Booking.find({accepteBy: expertId, status:'Completed'}).populate('userId').select('-password');
         if(!booking){
-            return res.status(404).json({message: "No booking found"});
+            return res.status(404).json({message: "No booking found"}); 
         }
         res.json(booking);
     }catch(err){
@@ -179,8 +188,8 @@ const getCompleteBooking = async (req, res) => {
 // complete booking by expert
 const completeBooking = async (req, res) => {
     try{
-        let expertId = req.expert._id;
-        let bookingId = req.params.id || req.body.id;
+        let expertId = req.expert._id
+        let bookingId = req.params.id 
         let booking = await Booking.findOne({_id: bookingId, accepteBy: expertId});
         if(!booking){
             return res.status(404).json({message: "Booking not found"});
@@ -189,18 +198,12 @@ const completeBooking = async (req, res) => {
         if(!expert){
             return res.status(404).json({message: "Expert not found"});
         }
-        // remove booking from pending service
-        let index = expert.pendingService.indexOf(bookingId);
-        console.log(index,"this is index");
-        if(index !== -1){
-            expert.pendingService.splice(index, 1);
-        }
-        // add booking to completed service
+       
         expert.completedService.push(bookingId);
         await expert.save();
 
         booking.status = "Completed";
-        await booking.save(function(){});
+        await booking.save();
 
         res.json({message: "Deal completed"});
 
@@ -213,7 +216,7 @@ const completeBooking = async (req, res) => {
 const getBookingByUser = async (req, res) => {
     try{
         let userId = req.user._id;
-        let booking= await Booking.find({userId: userId});
+        let booking= await Booking.find({userId: userId}).sort({date:'desc',time:"desc"});
         if(!booking){
             return res.status(404).json({message: "No booking found"});
         }

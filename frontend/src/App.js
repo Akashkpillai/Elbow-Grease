@@ -43,14 +43,6 @@ import ViewDealDetails from './pages/admin/ViewDealDetails';
 import NoPage from './components/NotFound/notfound';
 export default function App() {
 
-
-  // useEffect(() => {
-  //   const storedValue = localStorage.getItem('isLoggedIn');
-  //   if (storedValue === 'true') {
-  //     setIsLoggedIn(true);
-  //   }
-  // }, []);
-
   
   return (
     <div className='app bg-white'>
@@ -78,7 +70,8 @@ export default function App() {
      <Route path="/editProfile" element={<ProEdit/>} />
      <Route path="/deal" element={<ViewDeals/>} />
      <Route path="/deal-deatails" element={<DealDetail/>} />
-     
+    
+
 
      </Route>
 

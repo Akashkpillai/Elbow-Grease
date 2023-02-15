@@ -2,25 +2,27 @@ import React, { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import axiox from 'axios'
+import axiox from '../../../api/axios'
 function AdminUserInfoPage() {
   const [userDetails, setUserDetails] = useState([]);
 
+
+  const token = localStorage.getItem('adminToken');
+  async function getAllUsers() {
+    const config = {
+        headers: {
+          Accept: 'application/json',
+          Authorization:token,
+          'Content-Type': 'application/json',
+        },
+      };
+  const response = await axiox.get('/admin/allusers',config);
+  setUserDetails(response.data.details);
+}
+
   useEffect(() => {
-    const token = localStorage.getItem('adminToken');
     getAllUsers();
-    async function getAllUsers() {
-        const config = {
-            headers: {
-              Accept: 'application/json',
-              Authorization:token,
-              'Content-Type': 'application/json',
-            },
-          };
-      const response = await axiox.get('http://localhost:3500/admin/allusers',config);
-      setUserDetails(response.data.details);
-    }
-  }, [userDetails]);
+  }, []);
 
   async function block(id) {
     const token = localStorage.getItem('adminToken');
@@ -31,8 +33,9 @@ function AdminUserInfoPage() {
         'Content-Type': 'application/json',
       },
     };
-    const data = await axiox.put(`http://localhost:3500/admin/block/${id}`,config);
+    const data = await axiox.put(`/admin/block/${id}`,config);
     toast.success(`${data.data.details.name} is blocked!`)
+    getAllUsers()
     if (data.blocked) {
       setUserDetails(data.userDetails);
     }
@@ -47,9 +50,10 @@ function AdminUserInfoPage() {
         'Content-Type': 'application/json',
       },
     };
-    const data = await axiox.put(`http://localhost:3500/admin/unblock/${id}`,config);
+    const data = await axiox.put(`/admin/unblock/${id}`,config);
     // console.log(data.data.details.name);
     toast.success(`${data.data.details.name} is unblocked!`)
+    getAllUsers()
     if (data.blocked) {
       setUserDetails(data.userDetails); 
     }

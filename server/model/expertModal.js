@@ -38,15 +38,6 @@ const expertSchema = new Schema({
         type: Schema.Types.ObjectId,
 
     }],
-    // rejected service list
-    rejectedService: [{
-        type: Schema.Types.ObjectId,
-    }],
-    // pending service list
-    pendingService: [{
-        type: Schema.Types.ObjectId,
-        
-    }],
     // completed service list
     completedService: [{
         type: Schema.Types.ObjectId,

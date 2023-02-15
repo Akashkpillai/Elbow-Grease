@@ -24,7 +24,7 @@ router.get('/acceptedExperts',adminauth.authAdmin,services.acceptedExperts)
 router.put('/accept/:id', services.acceptExperts)
 router.put('/expertEblock/:id',services.blockExpert)
 
-router.get('/booking-page',booking.getAllBooking)
+router.get('/booking-page',adminauth.authAdmin,booking.getAllBooking) 
 router.get('/booking-details/:id',booking.getBookingById)
 
 router.get('/getUserCount',adminauth.authAdmin,services.getUserCount)
