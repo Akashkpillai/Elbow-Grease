@@ -304,6 +304,15 @@ const getExpertCount = async (req,res) => {
     }
 }
 
+const getCategory = async(req,res) =>{
+    try {
+        const category = await Category.find()
+        return res.json(category)
+    } catch (error) {
+        return res.status(500).json({msg: error.message})
+    }
+}
+
 const getDealCount = async (req,res) => {
     try {
         const user = await Booking.find().count()
@@ -338,5 +347,6 @@ module.exports = {
     unblockExpert,
     getUserCount,
     getDealCount,
-    getExpertCount
+    getExpertCount,
+    getCategory
 }

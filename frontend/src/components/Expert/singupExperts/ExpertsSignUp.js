@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import {Button, Card, CardContent, Grid, TextField, Typography,Container, MenuItem,Select, Link} from '@mui/material'
 import { useSelector,useDispatch } from 'react-redux';
 import {useFormik} from 'formik'
@@ -10,9 +10,11 @@ import ExNavbar from '../../../pages/Experts/ExNavbar';
 
 
 
+
 function Booking() {
 
-  const catrgory = useSelector((state) => state.admin.category);
+  // const catrgory = useSelector((state) => state.admin.category);
+  const [cat,setCat] = useState([])
   const navigate = useNavigate();
 const initialValues = {
   name:"",
@@ -24,6 +26,20 @@ const initialValues = {
   newPassword:"",
   conPassword:""
 }
+
+const catrgory = async() =>{
+  try {
+    const res = await axios.get('/admin/Allcategory')
+    console.log(res);
+    setCat(res.data)
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+useEffect(()=>{
+  catrgory()
+},[])
 
  const {values,errors,touched,handleChange,handleSubmit,handleBlur} = useFormik({
   initialValues:initialValues,
@@ -83,7 +99,7 @@ const initialValues = {
             <select  onChange={handleChange} onBlur={handleBlur} value={values.value} name='category'  className='w-full' style={{border:"solid 1px grey"}} >
               <option disabled selected>Select your option</option>
             {
-              catrgory.map((ser)=>{
+              cat?.map((ser)=>{
                 return(
                      <option name='category'  value={ser.category} >{ser.category}</option>
                      )

@@ -17,7 +17,7 @@ import {categoryDetails} from '../../Redux/adminReducer'
 
 function Category() {
 
-    const [category, setCategory] = useState();
+    const [category, setCategory] = useState([]);
     const [getCat, setGetCat] = useState([]);
     const [validation, setValidation] = useState()
 

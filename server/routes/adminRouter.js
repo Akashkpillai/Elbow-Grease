@@ -30,6 +30,7 @@ router.get('/booking-details/:id',booking.getBookingById)
 router.get('/getUserCount',adminauth.authAdmin,services.getUserCount)
 router.get('/getExpertCount',adminauth.authAdmin,services.getExpertCount)
 router.get('/getDealCount',adminauth.authAdmin,services.getDealCount)
+router.get('/Allcategory',services.getCategory)
 
 
 

@@ -19,7 +19,7 @@ import {toast} from 'react-toastify'
 function Booking() {
 
     const dispatch = useDispatch()
-    const catrgory = useSelector((state) => state.admin.category);
+   
     const user = useSelector((state) => state.admin.userToken)
 
 
@@ -33,6 +33,8 @@ function Booking() {
     const [time,setTime] = useState();
     const [category, setService] = useState()
     const [discription, setAbout] = useState()
+    const [cat,setCat] = useState([])
+
 
     // console.log(date);
 
@@ -58,7 +60,20 @@ function Booking() {
     }
     const location = useLocation()
     const bookDetails = location.state
-    // console.log(bookDetails);
+
+
+    const catrgory = async() =>{
+        try {
+          const res = await axios.get('/admin/Allcategory')
+          setCat(res.data)
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
+      useEffect(()=>{
+        catrgory()
+      },[])
 
 
     const submit = async (e) => {
@@ -72,7 +87,6 @@ function Booking() {
                 }
             };
             const res = await axios.post('/users/booking', value, config)
-            // console.log(res);
             const msg = res.data.message
             dispatch(userBookingDetails(res.data.data))
             setResponse(res.data.data)
@@ -83,7 +97,6 @@ function Booking() {
             toast.error(msg)
         }
     }
-
 
     const payment = async () => {
         axios.post('/users/create-checkout-session', {response}).then((res) => {
@@ -106,8 +119,7 @@ function Booking() {
         setDate(value.split('T')[0])
         setTime(value.split('T')[1]) 
 }
-// console.log(date);
-// console.log(time);
+
 
     return (
         <>
@@ -186,16 +198,16 @@ function Booking() {
                             <Typography variant='body2' gutterBottom>
                                 Service
                             </Typography>
-                            <select onChange={handleChange}
+                            <select defaultValue={"Default"} onChange={handleChange}
                                 className='w-full'
                                 style={
                                     {border: "solid 1px grey"}
                             }>
-                                <option disabled selected>Select your option</option>
+                                <option disabled value='Default'>Select your option</option>
                                 {
-                                catrgory.map((ser) => {
+                                cat?.map((ser) => {
                                     return (
-                                        <option value={
+                                        <option key={ser._id} value={
                                             ser.category
                                         }>
                                             {
