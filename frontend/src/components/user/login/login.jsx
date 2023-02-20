@@ -3,9 +3,9 @@ import {useNavigate} from 'react-router-dom'
 import axios from "../../../api/axios";
 import './login.css'
 import {showErrMsg,showSuccessMsg} from "../../util/notifications/Notification"
-import {useDispatch} from 'react-redux'
-import jwt from "jwt-decode"
+import {useDispatch, useSelector} from 'react-redux'
 import {userToken} from '../../Redux/adminReducer'
+
 
 
 const initialState = {
@@ -17,10 +17,11 @@ const initialState = {
 
 
 function Login() {
-    const LOG_URL = '/users/login'
    const [user,setUser] = useState(initialState)
    const dispatch = useDispatch()
    const navigate = useNavigate()
+   const details = useSelector((state) => state.admin.userToken)
+
 
    const {email,password,err,success} = user
 
@@ -32,30 +33,27 @@ function Login() {
    const logUser = async e =>{
     e.preventDefault()
     try {
-        const res = await axios.post(LOG_URL,{email,password})
+        const res = await axios.post('/users/login',{email,password})
         setUser({...user,err:'',success:res.data.msg});
         localStorage.setItem('userInfo',res.data.data)
         const token = res.data.data
         dispatch(userToken(token))
-        localStorage.setItem('userLogin',"true")
         navigate('/userHome')
     } catch (err) {
        err.response.data.msg && setUser({...user,err:err.response.data.msg,success:''})
     }
    }
     
-   const session = () => {
-    const storedValue = localStorage.getItem('userLogin')
-    // console.log(storedValue);
-    if (storedValue == 'true') {
-        navigate('/userHome')
-    } else {
-        navigate('/login',{replace:true})
-    }
-}
+//    const session = () => {
+//     if (details !== false){
+//         navigate('/userHome',{replace:true})
+//     } else {
+//         navigate('/login',{replace:true})
+//     }
+// }
 
 useEffect(() => {
-    session()
+    // session()
 }, [])
 
   return (

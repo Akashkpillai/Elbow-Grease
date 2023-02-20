@@ -5,10 +5,10 @@ import { Link } from 'react-router-dom'
 import jwt from 'jwt-decode'
 import axios from '../../../api/axios'
 
+
 function AdminHome() {
 
   const Admintoken = useSelector((state) => state.admin.adminDetails)
-  // console.log(token);
 
  const [user,setUser] = useState()
  const [expert,setExpert] = useState()
@@ -99,6 +99,7 @@ function AdminHome() {
           </div>
         </Link>
       </div>
+     
     </div>
   )
 }

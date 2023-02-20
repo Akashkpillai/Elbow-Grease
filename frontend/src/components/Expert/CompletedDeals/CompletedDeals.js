@@ -36,7 +36,7 @@ function Deals() {
         getDetails()
     }, [])
 
-    const acceptDeal = async () => {}
+    // const acceptDeal = async () => {}
 
 
     return (

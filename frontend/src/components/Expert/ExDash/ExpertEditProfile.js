@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
 import axios from "../../../api/axios";
-import { render } from "react-dom";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
@@ -54,6 +52,12 @@ function ProfileEdit() {
 
  const handleFileInputChnage =(e)=>{
     const files = e.target.files[0]
+    const fileSize = files.size / 1024 / 1024;
+    if (fileSize > 2) {
+     toast.error("File size must be less than 2 MB");
+      setPreviewSource("");
+      return;
+    }
     previewFile(files)
  }
 
@@ -90,18 +94,19 @@ function ProfileEdit() {
                   <p>Please fill out all the fields.</p>
                   <div className="mt-10">
                     <div class="relative w-44 h-36 ">
-                        { {previewSource} ?
+                        { previewSource ?
                         <img
                         class="rounded-full border border-gray-100 shadow-sm"
                         style={{height:"150px"}}
                         src={previewSource}
-                        alt="user image"
+                        alt="user pic"
                       />:
-                        <img
-                          class="rounded-full border border-gray-100 shadow-sm"
-                            src={cont.image}
-                           alt="user image"
-                        />
+                      <img
+                      class="rounded-full border border-gray-100 shadow-sm"
+                      style={{height:"150px"}}
+                      src={cont.image}
+                      alt="user pic"
+                    />
 
                         }
                       <div className="flex justify-center flex-wrap mt-5 ">
@@ -137,13 +142,7 @@ function ProfileEdit() {
                         ) : (
                           ""
                         )}
-                        {/* <button
-                          type="submit"
-                          className="text-white bg-green-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold rounded-lg text-sm  px-5 py-2.5 mt-5 text-center dark:bg-green-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 "
-                        //   onClick={uploadImage}
-                        >
-                          Upload
-                        </button> */}
+                       
                       </div>
                       {/* <div class="absolute top-0 right-0 h-6 w-6 my-1 border-4 border-white rounded-full bg-green-400 z-2"></div> */}
                     </div>

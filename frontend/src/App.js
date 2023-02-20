@@ -70,14 +70,12 @@ export default function App() {
      <Route path="/editProfile" element={<ProEdit/>} />
      <Route path="/deal" element={<ViewDeals/>} />
      <Route path="/deal-deatails" element={<DealDetail/>} />
-    
-
-
      </Route>
 
 
       {/* admin */}
      <Route path="/admin" element={<AdLogin />} />
+     <Route element={<AdminRoute/>}>
      <Route path="/admin/home" element={<AdminHome />} />
      <Route path="/admin/user" element={<UserInfo />} />
      <Route path="/admin/category" element={<CategoryMan />} />
@@ -87,9 +85,7 @@ export default function App() {
      <Route path="/admin/expertPending" element={<ExpertPendingInfo />} />
      <Route path="/admin/booking" element={<ViewAllBooking />} />
      <Route path="/admin/deal-alldetails" element={<ViewDealDetails />} />
-
-
-
+     </Route>
 
 
       {/* expert */}

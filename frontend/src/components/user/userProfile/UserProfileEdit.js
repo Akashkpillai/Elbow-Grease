@@ -31,8 +31,6 @@ function ProfileEdit() {
 
   const uploadImage = async (base64EncodedImage) =>{
    const data = base64EncodedImage
-    // console.log(data);
-    // console.log(base64EncodedImage);
     try {
         const config = {
             headers: {
@@ -52,6 +50,12 @@ function ProfileEdit() {
 
  const handleFileInputChnage =(e)=>{
     const files = e.target.files[0]
+    const fileSize = files.size / 1024 / 1024;
+    if (fileSize > 2) {
+     toast.error("File size must be less than 2 MB");
+      setPreviewSource("");
+      return;
+    }
     previewFile(files)
  }
 
@@ -88,18 +92,19 @@ function ProfileEdit() {
                   <p>Please fill out all the fields.</p>
                   <div className="mt-10">
                     <div class="relative w-44 h-36 ">
-                        { {previewSource} ?
+                        { previewSource ?
                         <img
                         class="rounded-full border border-gray-100 shadow-sm"
                         style={{height:"150px"}}
                         src={previewSource}
                         alt="user image"
                       />:
-                        <img
-                          class="rounded-full border border-gray-100 shadow-sm"
-                            src={cont.avatar}
-                           alt="user image"
-                        />
+                      <img
+                      class="rounded-full border border-gray-100 shadow-sm"
+                      style={{height:"150px"}}
+                      src={cont.avatar}
+                      alt="user image"
+                    />
 
                         }
                       <div className="flex justify-center flex-wrap mt-5 ">

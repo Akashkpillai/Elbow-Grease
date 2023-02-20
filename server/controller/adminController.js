@@ -288,7 +288,7 @@ const getUserCount = async (req,res) => {
         }
         return res.json({msg: "Deleted successfuly!",count:user});
     } catch (error) {
-        return res.status(500).json({msg: error.message})
+        return res.status(500).json({msg: error.message}) 
     }
 }
 

@@ -7,7 +7,6 @@ import {
     Radio,
     Upload
 } from "antd";
-import {PlusOutlined} from "@ant-design/icons";
 import axios from "../../../api/axios";
 import {Link} from "react-router-dom";
 import {makeStyles} from "@material-ui/core/styles";
@@ -18,8 +17,6 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import TextField from "@material-ui/core/TextField";
-import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { toast } from "react-toastify";
 

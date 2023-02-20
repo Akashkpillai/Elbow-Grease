@@ -53,7 +53,6 @@ const userCtrl = {
     activateMail: async (req, res) => {
         try {
             const {activation_token} = req.body;
-            // console.log(activation_Token)
             const user = jwt.verify(activation_token, process.env.ACTIVATION_TOKEN_SECRET);
             console.log(user);
 
@@ -200,7 +199,7 @@ const createActivationToken = (payload) => {
 }
 
 const createAccessToken = (payload) => {
-    return jwt.sign(payload, ACCESS_TOKEN_SECRET, {expiresIn: '15m'})
+    return jwt.sign(payload, ACCESS_TOKEN_SECRET)
 }
 
 const createRefreshToken = (payload) => {

@@ -57,16 +57,11 @@ function Userhome() {
                       'Content-Type': 'application/json',
                     },
                   };
-              const response = await axios.get('http://localhost:3500/users/info',config);
+              const response = await axios.get('/users/info',config);
               const details = response.data
               dispatch(userAllDetails(details))
             }
             dispatch(userLoginDetails(user));
-            if(user){
-                navigate('/userHome')
-            }else{
-                navigate('/login')
-            }
         }else{
             navigate('/login')
         }

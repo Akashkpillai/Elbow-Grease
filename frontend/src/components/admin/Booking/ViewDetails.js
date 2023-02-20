@@ -1,10 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {MDBTable, MDBTableHead, MDBTableBody} from "mdb-react-ui-kit";
-import {MDBCarousel, MDBCarouselItem} from "mdb-react-ui-kit";
 import {useLocation} from 'react-router-dom';
 import axios from '../../../api/axios';
-import {useSelector} from "react-redux";
-import {toast} from 'react-toastify'
 import {useNavigate} from 'react-router-dom';
 
 

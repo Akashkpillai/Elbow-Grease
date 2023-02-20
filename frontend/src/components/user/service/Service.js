@@ -11,7 +11,6 @@ import {
   } from 'mdb-react-ui-kit';
 import './service.css'
 import image from '../../../asset/male-electrician-works-switchboard-with-electrical-connecting-cable.jpg'
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import axios from '../../../api/axios';
 
@@ -22,7 +21,7 @@ function Service() {
 
   useEffect(()=>{
    getAllServices();
-  },[service])
+  },[])
     
   async function getAllServices() {
     const response = await axios.get('/users/services');

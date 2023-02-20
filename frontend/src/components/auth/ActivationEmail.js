@@ -1,14 +1,10 @@
 import {useState,useEffect} from "react";
 import {showErrMsg,showSuccessMsg} from "../util/notifications/Notification"
-import axios from "axios";
+import axios from "../../api/axios";
 import { useParams,Link } from "react-router-dom";
 import {Button} from "@mui/material"
 import { motion, useMotionValue, useTransform } from "framer-motion"
-import LOGO from '../../asset/elbow-grease-low-resolution-logo-black-on-transparent-background.png'
-
 import './ActivateEmail.css'
-
-const URL = 'http://localhost:3500/users/activation'
 
 function ActivationEmail() {
 
@@ -21,7 +17,7 @@ function ActivationEmail() {
       if(activation_token){
       const  activateMail= async ()=>{
          try {
-             const res=await axios.post(URL,{activation_token})
+             const res=await axios.post('/users/activation',{activation_token})
              setsuccess(res.data.msg)
  
          } catch (err) {

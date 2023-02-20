@@ -30,9 +30,7 @@ const initialValues = {
   validationSchema:signupSchema,
   onSubmit:async(values,action)=>{
     try {
-      console.log(values,"Hi poopi");
     const res = await axios.post('/expert/signup',values)
-    console.log(res,"myre");
     toast.success(res.data.message)
     action.resetForm()
     navigate('/experts/login')
